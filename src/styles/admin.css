@@ -1,0 +1,177 @@
+/* ==========================================================================
+   UNIMARKET – ADMIN STYLES overrides
+   ========================================================================== */
+
+:root {
+  --primary: var(--spotify-green);
+  --accent: var(--spotify-gold);
+  --bg: var(--spotify-bg);
+  --text: var(--spotify-text);
+  --border: var(--spotify-border);
+}
+
+body {
+  background-color: var(--spotify-bg) !important;
+  color: var(--spotify-text) !important;
+  padding-top: 90px !important;
+}
+
+/* Page wrap fallback override */
+.admin-page-wrap {
+  background: var(--spotify-bg) !important;
+  min-height: 100vh;
+}
+
+/* ── Container Override ── */
+.container {
+  max-width: 1200px;
+}
+
+h3, h4, h5 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700 !important;
+  color: var(--spotify-text);
+  letter-spacing: -0.4px;
+}
+
+/* ── Stat Cards ── */
+.stat-card {
+  border: 1px solid var(--spotify-border) !important;
+  border-radius: var(--spotify-radius-lg) !important;
+  background-color: var(--spotify-surface-1) !important;
+  box-shadow: var(--spotify-shadow) !important;
+  transition: all 0.2s ease !important;
+  color: var(--spotify-text) !important;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  background-color: var(--spotify-surface-2) !important;
+  border-color: rgba(255,255,255,0.1) !important;
+}
+
+.stat-card h3 {
+  margin-top: 8px;
+  font-weight: 800;
+  color: var(--spotify-green) !important;
+}
+
+/* ── Section Cards ── */
+.section-card {
+  padding: 10px;
+  border: 1px solid var(--spotify-border) !important;
+  border-radius: var(--spotify-radius-lg) !important;
+  background-color: var(--spotify-surface-1) !important;
+  box-shadow: var(--spotify-shadow) !important;
+  color: var(--spotify-text) !important;
+}
+
+.card {
+  background-color: var(--spotify-surface-1) !important;
+  border: 1px solid var(--spotify-border) !important;
+  border-radius: var(--spotify-radius-lg) !important;
+  color: var(--spotify-text) !important;
+}
+
+/* ── Custom table styling for dark theme ── */
+.table {
+  color: var(--spotify-text) !important;
+  background-color: transparent !important;
+  border-color: var(--spotify-border) !important;
+}
+
+.table th {
+  background-color: var(--spotify-surface-2) !important;
+  color: var(--spotify-muted) !important;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  border-bottom: 2px solid var(--spotify-border) !important;
+  padding: 12px !important;
+}
+
+.table td {
+  border-bottom: 1px solid var(--spotify-border) !important;
+  padding: 12px !important;
+  color: var(--spotify-text) !important;
+  background-color: transparent !important;
+}
+
+.table-hover tbody tr:hover td {
+  background-color: var(--spotify-surface-2) !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) td {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+}
+
+/* Badges */
+.badge {
+  font-weight: 700 !important;
+  letter-spacing: 0.3px;
+  border-radius: var(--spotify-radius-pill) !important;
+}
+
+.badge.bg-success {
+  background-color: rgba(29, 185, 84, 0.2) !important;
+  color: var(--spotify-green) !important;
+}
+
+.badge.bg-danger {
+  background-color: rgba(241, 94, 108, 0.2) !important;
+  color: var(--spotify-error) !important;
+}
+
+.badge.bg-warning {
+  background-color: rgba(212, 175, 55, 0.2) !important;
+  color: var(--spotify-gold) !important;
+}
+
+/* Sign out / standard buttons */
+.btn {
+  border-radius: var(--spotify-radius-pill) !important;
+  font-weight: 700 !important;
+}
+
+.tab-btn {
+  padding: 8px 20px !important;
+  transition: all 0.2s ease !important;
+}
+
+.tab-btn.btn-primary {
+  background-color: var(--spotify-green) !important;
+  border: none !important;
+  color: #000000 !important;
+}
+
+.tab-btn.btn-primary:hover {
+  background-color: var(--spotify-green-hover) !important;
+}
+
+.tab-btn.btn-secondary {
+  background-color: var(--spotify-surface-2) !important;
+  border: 1px solid var(--spotify-border) !important;
+  color: var(--spotify-text) !important;
+}
+
+.tab-btn.btn-secondary:hover {
+  border-color: var(--spotify-text) !important;
+  background-color: var(--spotify-surface-3) !important;
+}
+
+/* Modals */
+.modal-content {
+  background-color: var(--spotify-surface-1) !important;
+  border: 1px solid var(--spotify-border) !important;
+  color: var(--spotify-text) !important;
+  border-radius: var(--spotify-radius-lg) !important;
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--spotify-border) !important;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--spotify-border) !important;
+}

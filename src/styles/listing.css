@@ -1,0 +1,84 @@
+/* ==========================================================================
+   UNIMARKET – SELL / CREATE LISTING overrides
+   ========================================================================== */
+
+:root {
+  --primary: var(--spotify-green);
+  --accent: var(--spotify-gold);
+  --bg: var(--spotify-bg);
+  --text: var(--spotify-text);
+  --border: var(--spotify-border);
+}
+
+body {
+  background-color: var(--spotify-bg) !important;
+  color: var(--spotify-text) !important;
+  padding-top: 90px !important;
+}
+
+/* ── Main Container Card ── */
+.main-card {
+  max-width: 650px;
+  margin: auto;
+  background-color: var(--spotify-surface-1) !important;
+  padding: 30px;
+  border-radius: var(--spotify-radius-lg);
+  border: 1px solid var(--spotify-border);
+  box-shadow: var(--spotify-shadow);
+  color: var(--spotify-text);
+}
+
+.main-card h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700 !important;
+  letter-spacing: -0.4px;
+}
+
+/* ── Step Container Cards ── */
+.step-card {
+  padding: 20px;
+  border-radius: var(--spotify-radius-md);
+  background-color: var(--spotify-surface-2) !important;
+  border: 1px solid var(--spotify-border);
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--spotify-green);
+  margin-bottom: 14px;
+}
+
+/* ── Inputs ── */
+.form-control,
+.form-select {
+  background-color: var(--spotify-surface-3) !important;
+  border: 1px solid var(--spotify-border) !important;
+  color: var(--spotify-text) !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--spotify-green) !important;
+  box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.2) !important;
+}
+
+/* ── Meet-up Slots Row ── */
+.slot-row-item {
+  background-color: var(--spotify-surface-3) !important;
+  padding: 10px;
+  border-radius: var(--spotify-radius-md);
+  border: 1px solid var(--spotify-border);
+}
+
+@media (max-width: 768px) {
+  .main-card {
+    padding: 16px !important;
+  }
+  .step-card {
+    padding: 12px 14px !important;
+  }
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buy Item – UniMarket</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../css/buy.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+<!-- ── TOPBAR ──────────────────────────────────────── -->
+<div class="topbar d-flex justify-content-between align-items-center">
+  <div class="logo">🏫 UniMarket</div>
+
+  <div class="d-flex align-items-center">
+    <a class="me-3" href="cat.html">Catalogue</a>
+    <a class="me-3" href="listing.html">Sell</a>
+    <a class="me-3" href="activity.html">Activity</a>
+    <span id="username" class="text-muted me-3">Student</span>
+    <a href="login.html" class="btn btn-outline-secondary btn-sm">Sign Out</a>
+  </div>
+</div>
+
+<!-- ── MAIN BOX ────────────────────────────────────── -->
+<div class="container-box">
+
+  <!-- back -->
+  <a href="cat.html" class="back-link">← Back to Catalogue</a>
+
+  <!-- alert -->
+  <div id="alertMsg" class="alert-msg"></div>
+
+  <!-- sold banner (hidden by default) -->
+  <div id="soldBanner" class="sold-banner" style="display:none;">
+    ⚠️ This item has already been sold.
+  </div>
+
+  <!-- layout -->
+  <div class="row g-4">
+
+    <!-- LEFT: image -->
+    <div class="col-md-5">
+      <img id="imgProduct" class="product-img" src="" alt="Product image" style="display:none;"/>
+      <div id="imgPlaceholder" class="img-placeholder">📦</div>
+    </div>
+
+    <!-- RIGHT: details -->
+    <div class="col-md-7">
+
+      <h3 id="lblName">Loading…</h3>
+      <p class="price" id="lblPrice">—</p>
+
+      <span class="seller-chip">
+        🎓 <span id="lblSeller">—</span>
+      </span>
+
+      <p><strong>Category:</strong> <span id="lblCategory">—</span></p>
+
+      <p><strong>Description:</strong></p>
+      <p id="lblDescription" style="color:#6b7280;">—</p>
+
+    </div>
+
+  </div><!-- /row -->
+
+  <hr/>
+
+  <!-- ── TIME SLOTS ──────────────────────────────── -->
+  <h5>📅 Select a Meet-up Slot</h5>
+  <p style="font-size:13px;color:#6b7280;margin-top:-8px;margin-bottom:16px;">
+    All meetups are on the MUT campus. Pay cash on the day.
+  </p>
+
+  <div id="slotsGrid" class="slots-grid">
+    <!-- Populated by buy.js -->
+  </div>
+
+  <!-- ── ORDER SUMMARY ───────────────────────────── -->
+  <div id="orderSummary" class="order-summary">
+    <p style="font-weight:600;margin-bottom:10px;">Order Summary</p>
+    <div class="summary-row">
+      <span>Item</span>
+      <strong id="sumProduct">—</strong>
+    </div>
+    <div class="summary-row">
+      <span>Price (cash on meetup)</span>
+      <strong id="sumPrice">—</strong>
+    </div>
+    <div class="summary-row">
+      <span>Day</span>
+      <strong id="sumDay">—</strong>
+    </div>
+    <div class="summary-row">
+      <span>Time</span>
+      <strong id="sumTime">—</strong>
+    </div>
+    <div class="summary-row">
+      <span>Venue</span>
+      <strong id="sumVenue">—</strong>
+    </div>
+  </div>
+
+  <!-- ── CONFIRM BUTTON ──────────────────────────── -->
+  <button id="btnBuy" class="buy-btn" onclick="confirmBuy()">
+    Confirm Purchase
+  </button>
+
+</div><!-- /container-box -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../javascript/buy.js"></script>
+
+</body>
+</html>

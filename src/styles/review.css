@@ -1,0 +1,288 @@
+:root {
+  --primary:   var(--spotify-green);
+  --primary2:  var(--spotify-green-hover);
+  --success:   var(--spotify-green);
+  --danger:    var(--spotify-error);
+  --warning:   var(--spotify-gold);
+  --bg:        var(--spotify-bg);
+  --surface:   var(--spotify-surface-1);
+  --text:      var(--spotify-text);
+  --muted:     var(--spotify-muted);
+  --border:    var(--spotify-border);
+  --shadow:    var(--spotify-shadow);
+  --radius:    var(--spotify-radius-lg);
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+
+body{
+  font-family:'DM Sans','Segoe UI',sans-serif;
+  background-color:var(--bg) !important;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:32px 16px;
+  color:var(--text) !important;
+}
+
+/* ── CARD ── */
+.review-card{
+  background:var(--surface);
+  border-radius:20px;
+  border: 1px solid var(--border);
+  box-shadow:var(--shadow);
+  width:100%;
+  max-width:520px;
+  overflow:hidden;
+}
+
+.review-header{
+  background: var(--spotify-surface-2) !important;
+  border-bottom: 1px solid var(--border);
+  padding:28px 32px 24px;
+  color:white;
+  text-align:center;
+}
+
+.review-header h1{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:22px;
+  font-weight:700;
+  margin:0 0 6px;
+}
+
+.review-header p{
+  font-size:14px;
+  opacity:.82;
+  margin:0;
+}
+
+.review-body{
+  padding:32px;
+}
+
+/* ── STAGES ── */
+.stage{display:none;}
+.stage.active{display:block;}
+
+/* ── STEP INDICATOR ── */
+.steps{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:0;
+  margin-bottom:28px;
+}
+
+.step{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  flex:1;
+}
+
+.step-circle{
+  width:36px;height:36px;
+  border-radius:50%;
+  background:var(--spotify-surface-2) !important;
+  border:2px solid var(--border) !important;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;
+  color:var(--muted) !important;
+  transition:all .3s;
+}
+
+.step-label{
+  font-size:11px;
+  color:var(--muted);
+  font-weight:500;
+  text-align:center;
+}
+
+.step.done   .step-circle{background:var(--success) !important;border-color:var(--success) !important;color:black !important;}
+.step.active .step-circle{background:var(--primary) !important;border-color:var(--primary) !important;color:black !important;}
+
+.step-line{
+  flex:1;height:2px;
+  background:var(--border);
+  margin-bottom:22px;
+  max-width:40px;
+  transition:background .3s;
+}
+
+.step-line.done{background:var(--success);}
+
+/* ── AI SPINNER ── */
+.ai-spinner{
+  text-align:center;
+  padding:20px 0 10px;
+}
+
+.spinner-ring{
+  width:64px;height:64px;
+  border-radius:50%;
+  border:4px solid var(--spotify-surface-2);
+  border-top-color:var(--primary);
+  animation:spin 1s linear infinite;
+  margin:0 auto 16px;
+}
+
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.ai-status{
+  font-size:14px;
+  color:var(--muted);
+  font-weight:500;
+  min-height:20px;
+}
+
+/* ── VERDICT BOXES ── */
+.verdict-box{
+  border-radius:14px;
+  padding:20px 22px;
+  margin-bottom:20px;
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+}
+
+.verdict-icon{font-size:28px;flex-shrink:0;line-height:1;}
+
+.verdict-box.approved{
+  background: rgba(29, 185, 84, 0.15) !important;
+  border: 1.5px solid rgba(29, 185, 84, 0.4) !important;
+  color: #a3f7bf !important;
+}
+
+.verdict-box.flagged{
+  background: rgba(212, 175, 55, 0.15) !important;
+  border: 1.5px solid rgba(212, 175, 55, 0.4) !important;
+  color: #ffe69c !important;
+}
+
+.verdict-box.rejected{
+  background: rgba(241, 94, 108, 0.15) !important;
+  border: 1.5px solid rgba(241, 94, 108, 0.4) !important;
+  color: #ff9eaf !important;
+}
+
+.verdict-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:16px;
+  margin:0 0 4px;
+}
+
+.verdict-body{
+  font-size:13px;
+  line-height:1.6;
+  color: rgba(255,255,255,0.95) !important;
+  margin:0;
+}
+
+/* ── AI NOTES ── */
+.ai-notes{
+  background: var(--spotify-surface-2) !important;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px 16px;
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:20px;
+  line-height:1.6;
+}
+
+.ai-notes strong{
+  display:block;
+  color:var(--text);
+  margin-bottom:4px;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+
+/* ── PRODUCT PREVIEW ── */
+.product-preview{
+  background: var(--spotify-surface-2) !important;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px 16px;
+  font-size:13px;
+  margin-bottom:20px;
+}
+
+.preview-row{
+  display:flex;
+  justify-content:space-between;
+  padding:3px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.preview-row:last-child{border-bottom:none;}
+.preview-row span:first-child{color:var(--muted);}
+.preview-row span:last-child{font-weight:600;text-align:right;max-width:65%;}
+
+/* ── BUTTONS ── */
+.btn-primary-uni{
+  width:100%;
+  padding:13px;
+  border-radius:20px;
+  border:none;
+  background:var(--primary);
+  color:white;
+  font-size:15px;
+  font-weight:600;
+  font-family:'DM Sans',sans-serif;
+  cursor:pointer;
+  transition:background .15s,transform .15s;
+  margin-bottom:10px;
+}
+
+.btn-primary-uni:hover{background:var(--primary2);transform:translateY(-1px);}
+
+.btn-secondary-uni{
+  width:100%;
+  padding:12px;
+  border-radius:20px;
+  border:1.5px solid var(--border);
+  background:transparent;
+  color:var(--text);
+  font-size:14px;
+  font-weight:600;
+  font-family:'DM Sans',sans-serif;
+  cursor:pointer;
+  transition:border-color .15s;
+}
+
+.btn-secondary-uni:hover{border-color:var(--primary);color:var(--primary);}
+
+.btn-danger-uni{
+  width:100%;
+  padding:12px;
+  border-radius:20px;
+  border:1.5px solid rgba(241, 94, 108, 0.3);
+  background:rgba(241, 94, 108, 0.1);
+  color:var(--danger);
+  font-size:14px;
+  font-weight:600;
+  font-family:'DM Sans',sans-serif;
+  cursor:pointer;
+  transition:background .15s;
+}
+
+.btn-danger-uni:hover{background:rgba(241, 94, 108, 0.25);}
+
+/* ── LOGO LINK ── */
+.logo-link{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:16px;
+  font-weight:700;
+  color:var(--primary);
+  text-decoration:none;
+  display:block;
+  text-align:center;
+  margin-top:20px;
+}

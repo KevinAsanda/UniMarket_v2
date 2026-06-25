@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UniMarket Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../css/admin.css" rel="stylesheet"/>
+  <style>
+    /* card preview modal */
+    #previewCardImg {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #E5E7EB;
+    }
+    .approval-card-thumb {
+      transition: transform .2s, box-shadow .2s;
+    }
+    .approval-card-thumb:hover {
+      transform: scale(1.04);
+      box-shadow: 0 4px 16px rgba(0,0,0,.15);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── TOPBAR ──────────────────────────────────────── -->
+<div class="topbar d-flex justify-content-between align-items-center">
+  <div class="logo">🏫 UniMarket Admin</div>
+  <a href="login.html" class="btn btn-outline-secondary btn-sm">Sign Out</a>
+</div>
+
+<div class="container mt-4">
+
+  <h3>Admin Dashboard</h3>
+
+  <!-- ── STAT CARDS ──────────────────────────────── -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-3">
+      <div class="card stat-card text-center p-3">
+        <div>Total Users</div>
+        <h3 class="text-primary" id="lblTotalUsers">—</h3>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card stat-card text-center p-3">
+        <div>Active Listings</div>
+        <h3 class="text-success" id="lblActiveListings">—</h3>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card stat-card text-center p-3">
+        <div>Unavailable</div>
+        <h3 class="text-warning" id="lblUnavailable">—</h3>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card stat-card text-center p-3">
+        <div>Complaints</div>
+        <h3 class="text-danger" id="lblComplaints">—</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PENDING APPROVALS BANNER ────────────────── -->
+  <div id="pendingBanner"
+       class="alert alert-warning d-flex align-items-center justify-content-between mb-3"
+       style="display:none!important; border-radius:12px;">
+    <span>⏳ <strong id="pendingBannerCount">0</strong> student account(s) waiting for approval.</span>
+    <button class="btn btn-warning btn-sm fw-semibold" onclick="switchTab('approvals')">
+      Review Now →
+    </button>
+  </div>
+
+  <!-- ── PENDING MANUAL REVIEW BANNER ─────────────── -->
+  <div id="manualReviewBanner"
+       class="alert alert-danger d-flex align-items-center justify-content-between mb-3"
+       style="display:none!important; border-radius:12px;">
+    <span>🔴 <strong id="manualReviewBannerCount">0</strong> listing(s) waiting for manual review (AI unavailable).</span>
+    <button class="btn btn-danger btn-sm fw-semibold" onclick="switchTab('manualreview')">
+      Review Now →
+    </button>
+  </div>
+
+  <!-- ── TOP SELLERS ─────────────────────────────── -->
+  <div class="card section-card mb-4">
+    <div class="card-body">
+      <h5>Top Sellers</h5>
+      <table class="table table-striped">
+        <thead><tr><th>Seller</th><th>Listings</th></tr></thead>
+        <tbody id="topSellersBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── NAV TABS ────────────────────────────────── -->
+  <div class="mb-4 d-flex flex-wrap gap-2">
+    <button class="btn btn-primary tab-btn active"   data-tab="listings"   onclick="switchTab('listings')">Listings</button>
+    <button class="btn btn-secondary tab-btn"         data-tab="users"      onclick="switchTab('users')">Users</button>
+    <button class="btn btn-warning tab-btn text-dark" data-tab="approvals"  onclick="switchTab('approvals')">
+      Approvals <span class="badge bg-dark ms-1" id="pendingBadge">0</span>
+    </button>
+    <button class="btn btn-danger tab-btn"            data-tab="complaints" onclick="switchTab('complaints')">Complaints</button>
+    <button class="btn btn-dark tab-btn"              data-tab="aireview"   onclick="switchTab('aireview')">🤖 AI Review</button>
+    <button class="btn btn-secondary tab-btn"          data-tab="manualreview" onclick="switchTab('manualreview')">
+      📋 Manual Review <span class="badge bg-danger ms-1" id="pendingReviewBadge">0</span>
+    </button>
+  </div>
+
+  <!-- ── LISTINGS PANEL ──────────────────────────── -->
+  <div id="panelListings" class="panel active">
+    <div class="card section-card">
+      <div class="card-body">
+        <h5>All Listings</h5>
+        <table class="table table-striped">
+          <thead><tr><th>Item</th><th>Seller</th><th>Price</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody id="listingsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── USERS PANEL ─────────────────────────────── -->
+  <div id="panelUsers" class="panel">
+    <div class="card section-card">
+      <div class="card-body">
+        <h5>Active Users</h5>
+        <table class="table table-striped">
+          <thead><tr><th>Name</th><th>Email</th><th>Course</th><th>Student #</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody id="usersBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── APPROVALS PANEL ─────────────────────────── -->
+  <div id="panelApprovals" class="panel">
+    <div class="card section-card">
+      <div class="card-body">
+        <h5 class="text-warning">⏳ Pending Account Approvals</h5>
+        <p class="text-muted" style="font-size:13px;">
+          Compare the student card image against the submitted details before approving.
+        </p>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Student #</th>
+                <th>Course</th>
+                <th>Registered</th>
+                <th>Student Card</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="approvalsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── COMPLAINTS PANEL ────────────────────────── -->
+  <div id="panelComplaints" class="panel">
+    <div class="card section-card">
+      <div class="card-body">
+        <h5 class="text-danger">Complaints</h5>
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr><th>Product</th><th>Seller</th><th>Phone</th><th>Complaint</th><th>Date</th><th>Status</th><th>Action</th></tr>
+          </thead>
+          <tbody id="complaintsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── AI REVIEW PANEL ─────────────────────────── -->
+  <div id="panelAireview" class="panel">
+    <div class="card section-card">
+      <div class="card-body">
+        <h5 class="mb-1">🤖 AI Listing Review</h5>
+        <p class="text-muted mb-3" style="font-size:13px;">Claude reviews each listing image and description for policy violations, misleading content, or prohibited items. Results are advisory — final action is yours.</p>
+        <div class="d-flex align-items-center gap-3 mb-3 flex-wrap">
+          <button class="btn btn-dark" onclick="runAIReviewAll()" id="btnAIReviewAll">▶ Review All Pending Listings</button>
+          <span class="text-muted" style="font-size:13px;" id="aiReviewStatus"></span>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle">
+            <thead><tr><th>Image</th><th>Item</th><th>Seller</th><th>Price</th><th style="min-width:280px;">AI Verdict</th><th>Risk</th><th>Action</th></tr></thead>
+            <tbody id="aiReviewBody"><tr><td colspan="7" class="text-center text-muted py-4">Click "Review All Pending Listings" to start.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MANUAL REVIEW PANEL ─────────────────────── -->
+  <div id="panelManualreview" class="panel">
+    <div class="card section-card">
+      <div class="card-body">
+        <h5 class="mb-1">📋 Manual Listing Review</h5>
+        <p class="text-muted mb-3" style="font-size:13px;">
+          These listings were submitted while the AI reviewer was unavailable.
+          Review each one manually and either approve it to go live, or reject it.
+        </p>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Item</th>
+                <th>Seller</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Submitted</th>
+                <th style="min-width:160px;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="manualReviewBody">
+              <tr><td colspan="8" class="text-center text-muted py-4">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- ── CARD IMAGE PREVIEW MODAL ─────────────────── -->
+<div class="modal fade" id="cardPreviewModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content" style="border-radius:14px;">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          🪪 Student Card — <span id="previewCardName"></span>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center p-3">
+        <img id="previewCardImg" src="" alt="Student card"
+             style="max-width:100%;border-radius:10px;border:1px solid #E5E7EB;"/>
+        <p class="text-muted mt-2" style="font-size:12px;">
+          Verify name, student number and photo match the submitted details before approving.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── REJECT REASON MODAL ──────────────────────── -->
+<div class="modal fade" id="rejectModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:14px;">
+      <div class="modal-header">
+        <h5 class="modal-title">Reject Account</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-muted" style="font-size:13px;">
+          Rejecting: <strong id="rejectStudentName"></strong>
+        </p>
+        <label class="form-label fw-semibold" style="font-size:13px;">Reason (optional)</label>
+        <textarea id="rejectReason" class="form-control" rows="3"
+                  placeholder="e.g. Student number not found in records"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" onclick="confirmReject()">Confirm Rejection</button>
+        <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MANUAL REVIEW REJECT MODAL ─────────────── -->
+<div class="modal fade" id="manualRejectModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:14px;">
+      <div class="modal-header">
+        <h5 class="modal-title">❌ Reject Listing</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-muted" style="font-size:13px;">
+          Rejecting: <strong id="manualRejectProductName"></strong>
+        </p>
+        <label class="form-label fw-semibold" style="font-size:13px;">Reason for rejection</label>
+        <textarea id="manualRejectReason" class="form-control" rows="3"
+                  placeholder="e.g. Item description violates marketplace policy"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" onclick="confirmManualReject()">Confirm Rejection</button>
+        <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── AI REVIEW DETAIL MODAL ────────────────────── -->
+<div class="modal fade" id="aiDetailModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content" style="border-radius:14px;">
+      <div class="modal-header">
+        <h5 class="modal-title">🤖 AI Review — <span id="aiDetailTitle"></span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-md-4 text-center">
+            <img id="aiDetailImg" src="" alt="Product image"
+                 style="width:100%;border-radius:10px;border:1px solid #E5E7EB;"/>
+            <p id="aiDetailNoImg" class="text-muted mt-2" style="font-size:12px;display:none;">No image uploaded</p>
+          </div>
+          <div class="col-md-8">
+            <p class="fw-semibold mb-1">Full AI Analysis:</p>
+            <div id="aiDetailText"
+                 style="font-size:13px;line-height:1.7;white-space:pre-wrap;
+                        background:#f9fafb;border-radius:8px;padding:14px;
+                        border:1px solid #E5E7EB;max-height:340px;overflow-y:auto;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="aiDetailDisable" class="btn btn-warning" onclick="disableFromDetail()">Disable Listing</button>
+        <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOAST ─────────────────────────────────────── -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../javascript/supabase.js"></script>
+<script src="../javascript/admin.js"></script>
+
+</body>
+</html>
