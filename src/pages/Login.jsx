@@ -160,10 +160,10 @@ export const Login = () => {
           return;
         }
 
-        // Fetch Student Profile
+        // Fetch Student Profile (same field selection as AuthContext fetchProfile for consistency)
         const { data: student, error: studentErr } = await supabase
           .from('students')
-          .select('*')
+          .select('student_id, student_number, first_name, last_name, email, contact_number, account_status')
           .eq('student_id', authData.user.id)
           .single();
 
@@ -190,7 +190,8 @@ export const Login = () => {
         localStorage.setItem('um_failed_attempts', '0');
         setAttempts(0);
 
-        // Update context
+        // Set user directly so ProtectedRoute works immediately on navigation.
+        // onAuthStateChange will also fire SIGNED_IN and set the same profile, which is fine.
         setUser(student);
 
         showToast(`Welcome back, ${student.first_name}!`, 'success');
@@ -682,7 +683,7 @@ export const Login = () => {
 
             {/* Camera View */}
             <div className="camera-wrap" id="cameraWrap" style={{ display: showCamera ? 'block' : 'none' }}>
-              <video ref={videoRef} id="videoFeed" autoplay playsInline muted style={{ transform: 'scaleX(-1)' }}></video>
+              <video ref={videoRef} id="videoFeed" autoPlay playsInline muted style={{ transform: 'scaleX(-1)' }}></video>
               <div ref={faceOvalRef} className="face-oval" id="faceOval"></div>
               <div className="scan-line" id="scanLine"></div>
               <div ref={camLabelRef} className="camera-label" id="camLabel">Position your face in the oval</div>

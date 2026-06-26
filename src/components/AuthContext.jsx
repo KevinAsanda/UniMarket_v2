@@ -20,8 +20,12 @@ export const AuthProvider = ({ children }) => {
         return null;
       }
 
-      // If user is suspended or banned, sign out and clear
-      if (student.account_status === 'suspended' || student.account_status === 'banned') {
+      // If user is pending, suspended, or banned, sign out and clear
+      if (
+        student.account_status === 'pending' ||
+        student.account_status === 'suspended' ||
+        student.account_status === 'banned'
+      ) {
         await supabase.auth.signOut();
         sessionStorage.clear();
         setUser(null);
@@ -68,8 +72,9 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     resolveSession();
 
-    // Listen for auth changes
+    // Listen for auth changes (skip INITIAL_SESSION — resolveSession() already handles that)
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'INITIAL_SESSION') return;
       if (session?.user) {
         const profile = await fetchProfile(session.user.id);
         setUser(profile);

@@ -968,7 +968,7 @@ export const Signup = () => {
             <p className="subtitle">Look directly into your webcam. The scanner compares your live face against your card photo to verify your identity.</p>
 
             <div className="camera-wrap" id="cameraWrap" style={{ display: 'block' }}>
-              <video ref={videoRef} id="videoFeed" autoplay playsInline muted style={{ transform: 'scaleX(-1)' }}></video>
+              <video ref={videoRef} id="videoFeed" autoPlay playsInline muted style={{ transform: 'scaleX(-1)' }}></video>
               <div className="face-oval" id="faceOval"></div>
               <div className="camera-label" id="camLabel">Position your face in the oval</div>
               
