@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const { data: student, error } = await supabase
         .from('students')
-        .select('student_id, student_number, first_name, last_name, email, contact_number, account_status')
+        .select('student_id, student_number, first_name, last_name, email, contact_number, account_status, card_verified, face_verified, qualification_id')
         .eq('student_id', userId)
         .single();
 
@@ -20,12 +20,8 @@ export const AuthProvider = ({ children }) => {
         return null;
       }
 
-      // If user is pending, suspended, or banned, sign out and clear
-      if (
-        student.account_status === 'pending' ||
-        student.account_status === 'suspended' ||
-        student.account_status === 'banned'
-      ) {
+      // If user is suspended or banned, sign out and clear
+      if (student.account_status === 'suspended' || student.account_status === 'banned') {
         await supabase.auth.signOut();
         sessionStorage.clear();
         setUser(null);

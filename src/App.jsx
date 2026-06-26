@@ -11,6 +11,7 @@ import { Sell } from './pages/Sell';
 import { Activity } from './pages/Activity';
 import { Review } from './pages/Review';
 import { Admin } from './pages/Admin';
+import { Settings } from './pages/Settings';
 
 // Global Styles import Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -55,6 +56,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Review />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/settings" 
+            element={
+              <ProtectedRoute>
+                <Settings />
               </ProtectedRoute>
             } 
           />

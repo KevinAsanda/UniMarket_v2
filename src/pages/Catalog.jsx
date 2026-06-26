@@ -81,7 +81,7 @@ export const Catalog = () => {
         .from('products')
         .select(`
           product_id, product_name, description, price, quantity, status, seller_id, category_id,
-          students!products_seller_id_fkey ( first_name, last_name ),
+          students!products_seller_id_fkey ( first_name, last_name, card_verified, face_verified ),
           product_images ( storage_path, is_primary )
         `)
         .eq('status', 'available')
@@ -456,6 +456,17 @@ export const Catalog = () => {
                           <IconUser size={12} strokeWidth={2} />
                         </span>
                         {sellerName}
+                        {p.students?.card_verified && p.students?.face_verified && (
+                          <span
+                            title="Verified MUT student"
+                            style={{ display: 'inline-flex', alignItems: 'center', marginLeft: 4, verticalAlign: 'middle' }}
+                          >
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="var(--spotify-green)" stroke="none">
+                              <path d="M12 2L3 7v5c0 5.25 3.75 10.14 9 11.25C17.25 22.14 21 17.25 21 12V7L12 2z"/>
+                              <polyline points="9 12 11 14 15 10" stroke="#fff" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </span>
+                        )}
                         <SellerRatingBadge sellerId={p.seller_id} />
                       </span>
 

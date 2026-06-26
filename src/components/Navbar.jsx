@@ -5,10 +5,11 @@ import {
   IconBook2,
   IconTag,
   IconPackage,
-  IconUser,
+  IconSettings,
   IconLogout,
   IconMenu2,
   IconX,
+  IconShieldCheckFilled,
 } from '@tabler/icons-react';
 
 export const Navbar = () => {
@@ -16,7 +17,9 @@ export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
-  const closeMenu = () => setIsOpen(false);
+  const closeMenu  = () => setIsOpen(false);
+
+  const isVerified = user?.card_verified && user?.face_verified;
 
   const getInitials = () => {
     if (!user) return '?';
@@ -26,7 +29,7 @@ export const Navbar = () => {
   return (
     <>
       <nav className="topbar">
-        {/* Logo — SVG wordmark only, no separate text label */}
+        {/* Logo */}
         <Link className="logo" to="/" style={{ textDecoration: 'none' }} aria-label="UniMarket Home">
           <img src="/images/1.svg" alt="UniMarket" style={{ height: '30px', width: 'auto' }} />
         </Link>
@@ -55,18 +58,55 @@ export const Navbar = () => {
             <IconPackage size={16} strokeWidth={2} style={{ marginRight: '6px', verticalAlign: 'middle' }} />
             Activity
           </NavLink>
+          <NavLink
+            to="/settings"
+            className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+          >
+            <IconSettings size={16} strokeWidth={2} style={{ marginRight: '6px', verticalAlign: 'middle' }} />
+            Settings
+          </NavLink>
         </div>
 
         {/* Right: user area + sign out */}
         <div className="nav-right">
-          <div className="user-pill">
-            <span className="user-avatar" id="userAvatar" aria-hidden="true">
+          <NavLink
+            to="/settings"
+            className="user-pill"
+            style={{ textDecoration: 'none', cursor: 'pointer' }}
+            title={isVerified ? 'Verified Account — View Settings' : 'Verify your identity — View Settings'}
+          >
+            <span className="user-avatar" id="userAvatar" aria-hidden="true"
+              style={{ position: 'relative' }}>
               {getInitials()}
+              {isVerified && (
+                <span style={{
+                  position: 'absolute',
+                  bottom: -2,
+                  right: -2,
+                  width: 14,
+                  height: 14,
+                  borderRadius: '50%',
+                  background: 'var(--spotify-bg)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                  <IconShieldCheckFilled size={14} color="var(--spotify-green)" />
+                </span>
+              )}
             </span>
             <span className="user-name" id="username">
-              {user ? `${user.first_name} ${user.last_name}` : 'Loading...'}
+              {user ? `${user.first_name} ${user.last_name}` : 'Loading…'}
+              {isVerified && (
+                <IconShieldCheckFilled
+                  size={13}
+                  color="var(--spotify-green)"
+                  style={{ marginLeft: '5px', verticalAlign: 'middle', flexShrink: 0 }}
+                  title="Verified student"
+                />
+              )}
             </span>
-          </div>
+          </NavLink>
           <button className="btn-signout" onClick={signOut} aria-label="Sign out">
             <IconLogout size={14} strokeWidth={2} style={{ marginRight: '5px', verticalAlign: 'middle' }} />
             Sign Out
@@ -108,6 +148,17 @@ export const Navbar = () => {
         >
           <IconPackage size={18} strokeWidth={2} />
           Activity
+        </NavLink>
+        <NavLink
+          to="/settings"
+          className={({ isActive }) => `drawer-link${isActive ? ' active' : ''}`}
+          onClick={closeMenu}
+        >
+          <IconSettings size={18} strokeWidth={2} />
+          Settings
+          {isVerified && (
+            <IconShieldCheckFilled size={14} color="var(--spotify-green)" style={{ marginLeft: 'auto' }} />
+          )}
         </NavLink>
         <hr style={{ borderColor: 'var(--spotify-border)', margin: '8px 0' }} />
         <button

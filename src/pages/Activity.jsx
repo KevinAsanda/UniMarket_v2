@@ -364,6 +364,47 @@ export const Activity = () => {
         </button>
       </div>
 
+      {/* Verification Prompt Banner — shown only to unverified users */}
+      {!(user?.card_verified && user?.face_verified) && (
+        <div className="container" style={{ marginTop: '16px' }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            padding: '14px 20px',
+            borderRadius: '12px',
+            background: 'rgba(29, 185, 84, 0.06)',
+            border: '1px solid rgba(29, 185, 84, 0.2)',
+          }}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(29,185,84,0.7)" stroke="none" style={{ flexShrink: 0 }}>
+              <path d="M12 2L3 7v5c0 5.25 3.75 10.14 9 11.25C17.25 22.14 21 17.25 21 12V7L12 2z"/>
+              <polyline points="9 12 11 14 15 10" stroke="#fff" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <div style={{ flex: 1 }}>
+              <span style={{ fontWeight: 600, fontSize: '13px' }}>Get a verified badge on your listings</span>
+              <span style={{ fontSize: '12px', color: '#6b7280', marginLeft: '6px' }}>
+                — Verify your student identity in Settings to build buyer trust.
+              </span>
+            </div>
+            <a href="/settings"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                padding: '6px 16px',
+                borderRadius: '100px',
+                background: 'var(--spotify-green, #1db954)',
+                color: '#000',
+                fontWeight: 700,
+                fontSize: '12px',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+              }}>
+              Verify Now →
+            </a>
+          </div>
+        </div>
+      )}
+
       {/* Main Content Containers */}
       <div className="container pb-5">
         {loading ? (
