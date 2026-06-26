@@ -85,15 +85,15 @@ a:hover {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--spotify-bg);
+  background: #181818;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--spotify-surface-3);
+  background: #282828;
   border-radius: 6px;
-  border: 2px solid var(--spotify-bg);
+  border: 2px solid #181818;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--spotify-muted);
+  background: #3A3A3A;
 }
 
 /* ── Topbar (Navbar) — Floating Pill ── */

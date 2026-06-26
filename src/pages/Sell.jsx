@@ -189,7 +189,7 @@ export const Sell = () => {
 
       {/* Toast Notification */}
       {toast.show && (
-        <div className={`toast show ${toast.type}`} style={{ position: 'fixed', top: '20px', right: '20px', zIndex: 1050 }}>
+        <div className={`toast show ${toast.type}`} style={{ position: 'fixed', top: '80px', right: '20px', zIndex: 1050 }}>
           {toast.msg}
         </div>
       )}
@@ -261,11 +261,11 @@ export const Sell = () => {
               <div
                 key={s.id}
                 className="slot-row-item mb-4"
-                style={{ borderBottom: idx < slots.length - 1 ? '1px solid #f3f4f6' : 'none', paddingBottom: idx < slots.length - 1 ? '20px' : 0 }}
+              style={{ borderBottom: idx < slots.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none', paddingBottom: idx < slots.length - 1 ? '20px' : 0 }}
               >
                 {/* Slot header */}
                 <div className="d-flex align-items-center justify-content-between mb-3">
-                  <span style={{ fontSize: '13px', fontWeight: 600, color: '#374151' }}>Slot #{idx + 1}</span>
+                  <span style={{ fontSize: '13px', fontWeight: 600, color: '#B3B3B3' }}>Slot #{idx + 1}</span>
                   {slots.length > 1 && (
                     <button
                       type="button"

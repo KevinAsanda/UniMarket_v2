@@ -266,7 +266,7 @@ export const Review = () => {
   };
 
   return (
-    <div style={{ background: '#f9fafb', minHeight: '100vh', padding: '40px 20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div style={{ background: '#121212', minHeight: '100vh', padding: '40px 20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <div className="review-card">
         <div className="review-header">
           <h1>🤖 AI Listing Review</h1>
@@ -405,7 +405,7 @@ export const Review = () => {
         </div>
       </div>
 
-      <Link className="logo-link" to="/" style={{ textDecoration: 'none', color: '#6b7280', fontSize: '14px', marginTop: '20px' }}>
+      <Link className="logo-link" to="/" style={{ textDecoration: 'none', color: '#B3B3B3', fontSize: '14px', marginTop: '20px' }}>
         ← Back to Catalogue
       </Link>
     </div>

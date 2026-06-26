@@ -535,7 +535,7 @@ export const Admin = () => {
 
         {/* ── LISTINGS PANEL ── */}
         {activeTab === 'listings' && (
-          <div className="card section-card" style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: '12px' }}>
+          <div className="card section-card">
             <div className="card-body">
               <h5 style={{ fontWeight: 600 }}>All Listings</h5>
               <div className="table-responsive">
@@ -573,9 +573,9 @@ export const Admin = () => {
 
         {/* ── FLAGGED LISTINGS PANEL ── */}
         {activeTab === 'flagged' && (
-          <div className="card section-card" style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: '12px' }}>
+          <div className="card section-card">
             <div className="card-body">
-              <h5 style={{ fontWeight: 600, color: '#dc2626' }}>🚩 Community-Flagged Listings</h5>
+              <h5 style={{ fontWeight: 700, color: '#E22134' }}>🚩 Community-Flagged Listings</h5>
               <p className="text-muted mb-3" style={{ fontSize: '13px' }}>
                 Listings flagged by students as suspicious. Auto-hidden when ≥5 flags are reached. Review and take action below.
               </p>
@@ -610,11 +610,11 @@ export const Admin = () => {
                             <td>
                               <span style={{
                                 fontWeight: 700,
-                                color: flagCount >= 5 ? '#dc2626' : flagCount >= 3 ? '#d97706' : '#374151',
-                                background: flagCount >= 5 ? '#fee2e2' : flagCount >= 3 ? '#fef3c7' : '#f3f4f6',
+                                color: flagCount >= 5 ? '#E22134' : flagCount >= 3 ? '#FFA500' : '#B3B3B3',
+                                background: flagCount >= 5 ? 'rgba(226,33,52,0.12)' : flagCount >= 3 ? 'rgba(255,165,0,0.12)' : 'rgba(255,255,255,0.08)',
                                 padding: '2px 10px',
-                                borderRadius: 20,
-                                fontSize: 13
+                                borderRadius: 9999,
+                                fontSize: 12
                               }}>
                                 🚩 {flagCount}
                               </span>
@@ -673,7 +673,7 @@ export const Admin = () => {
 
         {/* ── USERS PANEL ── */}
         {activeTab === 'users' && (
-          <div className="card section-card" style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: '12px' }}>
+          <div className="card section-card">
             <div className="card-body">
               <h5 style={{ fontWeight: 600 }}>Active Users</h5>
               <div className="table-responsive">
@@ -996,7 +996,7 @@ export const Admin = () => {
                     <p className="text-muted">Price: R{parseFloat(selectedAiDetail.price).toFixed(2)} | Seller: {selectedAiDetail.seller}</p>
                     <hr />
                     <p className="fw-semibold mb-1">Audit Findings:</p>
-                    <div style={{ fontSize: '13px', lineHeight: '1.7', background: '#f9fafb', borderRadius: '8px', padding: '14px', border: '1px solid #E5E7EB' }}>
+                    <div style={{ fontSize: '13px', lineHeight: '1.7', background: '#282828', borderRadius: '10px', padding: '14px', border: '1px solid rgba(255,255,255,0.08)', color: '#FFFFFF' }}>
                       <p><strong>Verdict:</strong> {selectedAiDetail.fullText?.recommendation.toUpperCase()}</p>
                       <p><strong>Description Risk:</strong> {selectedAiDetail.fullText?.risk.toUpperCase()}</p>
                       <p><strong>Identified Flags:</strong></p>
