@@ -298,16 +298,16 @@ export const Activity = () => {
   const PaymentBadge = ({ status }) => {
     if (!status || status === 'pending') return null;
     const map = {
-      paid:     { label: 'Paid', color: '#059669', bg: '#d1fae5' },
-      released: { label: 'Released', color: '#0369a1', bg: '#e0f2fe' },
-      refunded: { label: 'Refunded', color: '#dc2626', bg: '#fee2e2' },
+      paid:     { label: 'Paid',     color: '#1DB954', bg: 'rgba(29,185,84,0.12)'   },
+      released: { label: 'Released', color: '#60A5FA', bg: 'rgba(96,165,250,0.12)'  },
+      refunded: { label: 'Refunded', color: '#F15E6C', bg: 'rgba(241,94,108,0.12)'  },
     };
     const cfg = map[status];
     if (!cfg) return null;
     return (
       <span style={{
-        fontSize: 11, fontWeight: 600, padding: '2px 8px', borderRadius: 20,
-        background: cfg.bg, color: cfg.color, border: `1px solid ${cfg.color}33`,
+        fontSize: 11, fontWeight: 600, padding: '2px 8px', borderRadius: 9999,
+        background: cfg.bg, color: cfg.color, border: `1px solid ${cfg.color}40`,
         marginLeft: 6,
       }}>
         {cfg.label}
@@ -316,12 +316,12 @@ export const Activity = () => {
   };
 
   return (
-    <div style={{ background: '#f9fafb', minHeight: '100vh', paddingBottom: '60px' }}>
+    <div style={{ background: '#121212', minHeight: '100vh', paddingBottom: '60px' }}>
       <Navbar />
 
       {/* Toast Notification */}
       {toast.show && (
-        <div className={`toast show ${toast.type}`} style={{ position: 'fixed', top: '20px', right: '20px', zIndex: 1050 }}>
+        <div className={`toast show ${toast.type}`} style={{ position: 'fixed', top: '80px', right: '20px', zIndex: 1050 }}>
           {toast.msg}
         </div>
       )}
@@ -373,16 +373,16 @@ export const Activity = () => {
             gap: '12px',
             padding: '14px 20px',
             borderRadius: '12px',
-            background: 'rgba(29, 185, 84, 0.06)',
-            border: '1px solid rgba(29, 185, 84, 0.2)',
+            background: 'rgba(29, 185, 84, 0.1)',
+            border: '1px solid rgba(29, 185, 84, 0.3)',
           }}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(29,185,84,0.7)" stroke="none" style={{ flexShrink: 0 }}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#1DB954" stroke="none" style={{ flexShrink: 0 }}>
               <path d="M12 2L3 7v5c0 5.25 3.75 10.14 9 11.25C17.25 22.14 21 17.25 21 12V7L12 2z"/>
-              <polyline points="9 12 11 14 15 10" stroke="#fff" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+              <polyline points="9 12 11 14 15 10" stroke="#000" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
             <div style={{ flex: 1 }}>
-              <span style={{ fontWeight: 600, fontSize: '13px' }}>Get a verified badge on your listings</span>
-              <span style={{ fontSize: '12px', color: '#6b7280', marginLeft: '6px' }}>
+              <span style={{ fontWeight: 600, fontSize: '13px', color: '#FFFFFF' }}>Get a verified badge on your listings</span>
+              <span style={{ fontSize: '12px', color: '#B3B3B3', marginLeft: '6px' }}>
                 — Verify your student identity in Settings to build buyer trust.
               </span>
             </div>
@@ -391,14 +391,18 @@ export const Activity = () => {
                 display: 'inline-flex',
                 alignItems: 'center',
                 padding: '6px 16px',
-                borderRadius: '100px',
-                background: 'var(--spotify-green, #1db954)',
-                color: '#000',
+                borderRadius: '9999px',
+                background: '#1DB954',
+                color: '#000000',
                 fontWeight: 700,
                 fontSize: '12px',
                 textDecoration: 'none',
                 whiteSpace: 'nowrap',
-              }}>
+                transition: 'background 150ms ease',
+              }}
+              onMouseEnter={e => e.currentTarget.style.background = '#1ED760'}
+              onMouseLeave={e => e.currentTarget.style.background = '#1DB954'}
+            >
               Verify Now →
             </a>
           </div>
@@ -416,11 +420,11 @@ export const Activity = () => {
         ) : activeTab === 'products' ? (
           // 🗂 My Products Panel
           <div id="panelProducts" className="panel active">
-            <div className="card-box" style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: '16px', overflow: 'hidden' }}>
-              <div className="card-header-bar d-flex justify-content-between align-items-center" style={{ padding: '16px', borderBottom: '1px solid #f3f4f6' }}>
+            <div className="card-box">
+              <div className="card-header-bar d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center gap-2">
                   <div className="card-icon teal">🗂</div>
-                  <h6 style={{ margin: 0, fontWeight: 600 }}>My Listings</h6>
+                  <h6>My Listings</h6>
                 </div>
                 <div>
                   <select
@@ -428,7 +432,6 @@ export const Activity = () => {
                     className="filter-select"
                     value={filterStatus}
                     onChange={(e) => setFilterStatus(e.target.value)}
-                    style={{ padding: '4px 8px', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '13px' }}
                   >
                     <option value="all">All</option>
                     <option value="available">Available</option>
@@ -442,7 +445,7 @@ export const Activity = () => {
                 ) : (
                   <table className="data-table" style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse' }}>
                     <thead>
-                      <tr style={{ background: '#f9fafb', borderBottom: '1px solid #f3f4f6', textAlign: 'left' }}>
+                      <tr>
                         <th style={{ padding: '12px 16px' }}>Item</th>
                         <th style={{ padding: '12px 16px' }}>Price</th>
                         <th style={{ padding: '12px 16px' }}>Status</th>
@@ -452,7 +455,7 @@ export const Activity = () => {
                     </thead>
                     <tbody>
                       {filteredOwnedProducts.map((p) => (
-                        <tr key={p.product_id} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                        <tr key={p.product_id}>
                           <td style={{ padding: '12px 16px', fontWeight: 600 }}>{p.product_name}</td>
                           <td style={{ padding: '12px 16px' }}>R{parseFloat(p.price).toFixed(2)}</td>
                           <td style={{ padding: '12px 16px' }}>
@@ -463,7 +466,7 @@ export const Activity = () => {
                           <td style={{ padding: '12px 16px' }}>{p.quantity}</td>
                           <td style={{ padding: '12px 16px' }}>
                             <div className="d-flex gap-1 flex-wrap">
-                              <button className="btn btn-sm btn-outline-dark" onClick={() => handleOpenEdit(p)}>✏️ Edit</button>
+                              <button className="btn btn-sm btn-outline-light" onClick={() => handleOpenEdit(p)}>✏️ Edit</button>
                               {p.status === 'available' && !p.is_hidden && (
                                 <>
                                   <button className="btn btn-sm btn-outline-warning" onClick={() => handleHideProduct(p.product_id)}>Hide</button>
@@ -488,11 +491,11 @@ export const Activity = () => {
           <div id="panelOrders" className="panel active">
 
             {/* Buying orders */}
-            <div className="card-box mb-4" style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: '16px', overflow: 'hidden' }}>
-              <div className="card-header-bar d-flex align-items-center gap-2" style={{ padding: '16px', borderBottom: '1px solid #f3f4f6' }}>
+            <div className="card-box mb-4">
+              <div className="card-header-bar d-flex align-items-center gap-2">
                 <div className="card-icon gold">🛒</div>
-                <h6 style={{ margin: 0, fontWeight: 600 }}>Buying Orders</h6>
-                <span className="header-sub" style={{ fontSize: '13px', color: '#6b7280' }}>({buying.length})</span>
+                <h6>Buying Orders</h6>
+                <span className="header-sub">({buying.length})</span>
               </div>
               <div className="table-wrap" style={{ overflowX: 'auto' }}>
                 {buying.length === 0 ? (
@@ -500,7 +503,7 @@ export const Activity = () => {
                 ) : (
                   <table className="data-table" style={{ width: '100%', minWidth: '700px', borderCollapse: 'collapse' }}>
                     <thead>
-                      <tr style={{ background: '#f9fafb', borderBottom: '1px solid #f3f4f6', textAlign: 'left' }}>
+                      <tr>
                         <th style={{ padding: '12px 16px' }}>Product</th>
                         <th style={{ padding: '12px 16px' }}>Price</th>
                         <th style={{ padding: '12px 16px' }}>Day</th>
@@ -517,19 +520,19 @@ export const Activity = () => {
                           : 'Seller';
                         const alreadyRated = submittedRatings.has(o.order_id);
                         return (
-                          <tr key={o.order_id} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                            <td style={{ padding: '12px 16px', fontWeight: 600 }}>{o.products?.product_name || '—'}</td>
-                            <td style={{ padding: '12px 16px' }}>R{parseFloat(o.products?.price || 0).toFixed(2)}</td>
-                            <td style={{ padding: '12px 16px' }}>{o.meetup_slots?.day_of_week || '—'}</td>
-                            <td style={{ padding: '12px 16px' }}>{o.meetup_slots?.slot_time ? o.meetup_slots.slot_time.slice(0, 5) : '—'}</td>
-                            <td style={{ padding: '12px 16px' }}>{o.meetup_slots?.venue || '—'}</td>
-                            <td style={{ padding: '12px 16px' }}>
+                          <tr key={o.order_id}>
+                            <td style={{ fontWeight: 600 }}>{o.products?.product_name || '—'}</td>
+                            <td>R{parseFloat(o.products?.price || 0).toFixed(2)}</td>
+                            <td>{o.meetup_slots?.day_of_week || '—'}</td>
+                            <td>{o.meetup_slots?.slot_time ? o.meetup_slots.slot_time.slice(0, 5) : '—'}</td>
+                            <td>{o.meetup_slots?.venue || '—'}</td>
+                            <td>
                               <span className={`badge-status ${o.order_status}`}>
                                 {o.order_status.toUpperCase()}
                               </span>
                               <PaymentBadge status={o.payment_status} />
                             </td>
-                            <td style={{ padding: '12px 16px' }}>
+                            <td>
                               <div className="d-flex gap-1 flex-wrap">
                                 {/* Chat button — always available */}
                                 <button
@@ -554,7 +557,7 @@ export const Activity = () => {
                                 )}
 
                                 {o.order_status === 'completed' && alreadyRated && (
-                                  <span style={{ fontSize: 12, color: '#059669', fontWeight: 600, alignSelf: 'center' }}>✓ Rated</span>
+                                  <span style={{ fontSize: 12, color: '#1DB954', fontWeight: 600, alignSelf: 'center' }}>✓ Rated</span>
                                 )}
 
                                 {/* Report button — for active non-completed orders */}
@@ -578,11 +581,11 @@ export const Activity = () => {
             </div>
 
             {/* Selling orders */}
-            <div className="card-box" style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: '16px', overflow: 'hidden' }}>
-              <div className="card-header-bar d-flex align-items-center gap-2" style={{ padding: '16px', borderBottom: '1px solid #f3f4f6' }}>
+            <div className="card-box">
+              <div className="card-header-bar d-flex align-items-center gap-2">
                 <div className="card-icon green">📦</div>
-                <h6 style={{ margin: 0, fontWeight: 600 }}>Selling Sales</h6>
-                <span className="header-sub" style={{ fontSize: '13px', color: '#6b7280' }}>({selling.length})</span>
+                <h6>Selling Sales</h6>
+                <span className="header-sub">({selling.length})</span>
               </div>
               <div className="table-wrap" style={{ overflowX: 'auto' }}>
                 {selling.length === 0 ? (
@@ -590,7 +593,7 @@ export const Activity = () => {
                 ) : (
                   <table className="data-table" style={{ width: '100%', minWidth: '750px', borderCollapse: 'collapse' }}>
                     <thead>
-                      <tr style={{ background: '#f9fafb', borderBottom: '1px solid #f3f4f6', textAlign: 'left' }}>
+                      <tr>
                         <th style={{ padding: '12px 16px' }}>Product</th>
                         <th style={{ padding: '12px 16px' }}>Buyer</th>
                         <th style={{ padding: '12px 16px' }}>Contact</th>
@@ -608,20 +611,20 @@ export const Activity = () => {
                           : 'Buyer';
                         const alreadyRated = submittedRatings.has(o.order_id);
                         return (
-                          <tr key={o.order_id} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                            <td style={{ padding: '12px 16px', fontWeight: 600 }}>{o.products?.product_name || '—'}</td>
-                            <td style={{ padding: '12px 16px' }}>{buyerName}</td>
-                            <td style={{ padding: '12px 16px' }}>{o.students?.contact_number || '—'}</td>
-                            <td style={{ padding: '12px 16px' }}>{o.meetup_slots?.day_of_week || '—'}</td>
-                            <td style={{ padding: '12px 16px' }}>{o.meetup_slots?.slot_time ? o.meetup_slots.slot_time.slice(0, 5) : '—'}</td>
-                            <td style={{ padding: '12px 16px' }}>{o.meetup_slots?.venue || '—'}</td>
-                            <td style={{ padding: '12px 16px' }}>
+                          <tr key={o.order_id}>
+                            <td style={{ fontWeight: 600 }}>{o.products?.product_name || '—'}</td>
+                            <td>{buyerName}</td>
+                            <td>{o.students?.contact_number || '—'}</td>
+                            <td>{o.meetup_slots?.day_of_week || '—'}</td>
+                            <td>{o.meetup_slots?.slot_time ? o.meetup_slots.slot_time.slice(0, 5) : '—'}</td>
+                            <td>{o.meetup_slots?.venue || '—'}</td>
+                            <td>
                               <span className={`badge-status ${o.order_status}`}>
                                 {o.order_status.toUpperCase()}
                               </span>
                               <PaymentBadge status={o.payment_status} />
                             </td>
-                            <td style={{ padding: '12px 16px' }}>
+                            <td>
                               <div className="d-flex gap-1 flex-wrap">
                                 {/* Chat with buyer */}
                                 <button
@@ -657,7 +660,7 @@ export const Activity = () => {
                                 )}
 
                                 {o.order_status === 'completed' && alreadyRated && (
-                                  <span style={{ fontSize: 12, color: '#059669', fontWeight: 600, alignSelf: 'center' }}>✓ Rated</span>
+                                  <span style={{ fontSize: 12, color: '#1DB954', fontWeight: 600, alignSelf: 'center' }}>✓ Rated</span>
                                 )}
                               </div>
                             </td>
