@@ -798,24 +798,26 @@ export const Signup = () => {
                 {errors.faculty && <span className="field-err" style={{ display: 'block' }}>{errors.faculty}</span>}
               </div>
 
-              {faculty && (
-                <div className="form-group full-width" id="qualificationGroup" style={{ gridColumn: 'span 2' }}>
-                  <label htmlFor="qualification">Qualification</label>
-                  <div className="select-wrap">
-                    <select 
-                      id="qualification"
-                      value={qualification}
-                      onChange={(e) => setQualification(e.target.value)}
-                    >
-                      <option value="">— Select your qualification —</option>
-                      {(QUALIFICATIONS[faculty] || []).map((q) => (
-                        <option key={q.id} value={q.id}>{q.name}</option>
-                      ))}
-                    </select>
-                  </div>
-                  {errors.qualification && <span className="field-err" style={{ display: 'block' }}>{errors.qualification}</span>}
+              <div
+                className={`form-group full-width${faculty ? ' qual-visible' : ''}`}
+                id="qualificationGroup"
+                style={{ gridColumn: 'span 2' }}
+              >
+                <label htmlFor="qualification">Qualification</label>
+                <div className="select-wrap">
+                  <select
+                    id="qualification"
+                    value={qualification}
+                    onChange={(e) => setQualification(e.target.value)}
+                  >
+                    <option value="">— Select your qualification —</option>
+                    {(QUALIFICATIONS[faculty] || []).map((q) => (
+                      <option key={q.id} value={q.id}>{q.name}</option>
+                    ))}
+                  </select>
                 </div>
-              )}
+                {errors.qualification && <span className="field-err" style={{ display: 'block' }}>{errors.qualification}</span>}
+              </div>
 
               <div className="form-group">
                 <label htmlFor="contact">Contact Number</label>
