@@ -83,10 +83,10 @@
   </div>
 
   <!-- ── TOP SELLERS ─────────────────────────────── -->
-  <div class="card section-card mb-4">
+  <div class="card section-card mb-4" style="width: 100%; box-sizing: border-box; max-width: none; float: none; position: relative; display: block;">
     <div class="card-body">
       <h5>Top Sellers</h5>
-      <table class="table table-striped">
+      <table class="table table-striped" style="width: 100%; table-layout: fixed;">
         <thead><tr><th>Seller</th><th>Listings</th></tr></thead>
         <tbody id="topSellersBody"></tbody>
       </table>
@@ -177,7 +177,7 @@
 
   <!-- ── AI REVIEW PANEL ─────────────────────────── -->
   <div id="panelAireview" class="panel">
-    <div class="card section-card">
+    <div class="card section-card" style="width: 100%; box-sizing: border-box; max-width: none; float: none; position: relative; display: block;">
       <div class="card-body">
         <h5 class="mb-1">🤖 AI Listing Review</h5>
         <p class="text-muted mb-3" style="font-size:13px;">Claude reviews each listing image and description for policy violations, misleading content, or prohibited items. Results are advisory — final action is yours.</p>
@@ -186,7 +186,7 @@
           <span class="text-muted" style="font-size:13px;" id="aiReviewStatus"></span>
         </div>
         <div class="table-responsive">
-          <table class="table table-striped align-middle">
+          <table class="table table-striped align-middle" style="width: 100%; table-layout: fixed;">
             <thead><tr><th>Image</th><th>Item</th><th>Seller</th><th>Price</th><th style="min-width:280px;">AI Verdict</th><th>Risk</th><th>Action</th></tr></thead>
             <tbody id="aiReviewBody"><tr><td colspan="7" class="text-center text-muted py-4">Click "Review All Pending Listings" to start.</td></tr></tbody>
           </table>

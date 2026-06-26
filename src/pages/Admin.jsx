@@ -503,10 +503,10 @@ export const Admin = () => {
         </div>
 
         {/* Top Sellers panel */}
-        <div className="card section-card mb-4">
+        <div className="card section-card mb-4" style={{ width: '100%', boxSizing: 'border-box', maxWidth: 'none', float: 'none', position: 'relative', display: 'block' }}>
           <div className="card-body">
             <h5 style={{ fontWeight: 600 }}>Top Sellers</h5>
-            <table className="table table-striped table-hover mb-0 mt-3" style={{ fontSize: '14px' }}>
+            <table className="table table-striped table-hover mb-0 mt-3" style={{ fontSize: '14px', width: '100%', tableLayout: 'fixed' }}>
               <thead>
                 <tr>
                   <th>Seller Display Name</th>
@@ -844,7 +844,7 @@ export const Admin = () => {
 
         {/* ── AI REVIEW PANEL ── */}
         {activeTab === 'aireview' && (
-          <div className="card section-card" style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: '12px' }}>
+          <div className="card section-card" style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: '12px', width: '100%', boxSizing: 'border-box', maxWidth: 'none', float: 'none', position: 'relative', display: 'block' }}>
             <div className="card-body">
               <h5 style={{ fontWeight: 600 }}>🤖 AI Content Audit Console</h5>
               <p className="text-muted mb-3" style={{ fontSize: '13px' }}>Scans active catalog listings for compliance. Suspicious listings will trigger risk flags.</p>
@@ -855,7 +855,7 @@ export const Admin = () => {
                 <span className="text-muted" style={{ fontSize: '13px' }}>{aiStatusMsg}</span>
               </div>
               <div className="table-responsive">
-                <table className="table table-striped align-middle mb-0" style={{ fontSize: '14px' }}>
+                <table className="table table-striped align-middle mb-0" style={{ fontSize: '14px', width: '100%', tableLayout: 'fixed' }}>
                   <thead>
                     <tr><th>Image</th><th>Item</th><th>Seller</th><th>Price</th><th>AI Verdict</th><th>Risk</th><th>Action</th></tr>
                   </thead>
