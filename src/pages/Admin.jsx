@@ -445,8 +445,8 @@ export const Admin = () => {
 
   return (
     <div className="admin-page-wrap pb-5">
-      {/* Topbar */}
-      <div className="topbar d-flex justify-content-between align-items-center">
+      {/* Admin pill navbar — hidden; Sign Out moved to fixed corner button */}
+      <div className="topbar admin-topbar-hidden d-flex justify-content-between align-items-center">
         <div className="logo" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <img src="/images/1.svg" alt="UniMarket Logo" style={{ height: '32px', width: 'auto' }} />
           <span>UniMarket Admin</span>
@@ -455,6 +455,14 @@ export const Admin = () => {
           Sign Out
         </button>
       </div>
+
+      {/* Standalone Sign Out — fixed top-right */}
+      <button
+        className="admin-signout-btn"
+        onClick={() => { sessionStorage.clear(); navigate('/login'); }}
+      >
+        Sign Out
+      </button>
 
       {/* Toast */}
       {toast.show && (

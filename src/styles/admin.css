@@ -1,106 +1,102 @@
 /* ==========================================================================
-   UNIMARKET – ADMIN DASHBOARD STYLES  (Spotify Design System)
+   UNIMARKET – ADMIN DASHBOARD  (Spotify Design System)
    ========================================================================== */
 
-/* ── Base ── */
+/* ── Reset / Base ── */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
 body {
   font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
   background-color: #121212 !important;
   color: #FFFFFF !important;
-  /* push content below floating pill (20px top + ~48px pill + 20px gap) */
   padding-top: 0 !important;
-}
-
-/* ── Page Wrap ── */
-.admin-page-wrap {
-  background: #121212 !important;
-  min-height: 100vh;
-  padding-top: 88px; /* clear the floating pill navbar */
-}
-
-/* ── Dashboard Content Container ── */
-/* Replaces Bootstrap .container which was too narrow and left-aligned */
-.admin-page-wrap > .container {
-  max-width: 1200px !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: 24px !important;
-  padding-right: 24px !important;
-  padding-top: 40px !important;
-}
-
-@media (max-width: 768px) {
-  .admin-page-wrap > .container {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-    padding-top: 24px !important;
-  }
-}
-
-/* ── Page Heading ── */
-h3, h4 {
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 700 !important;
-  color: #FFFFFF !important;
-}
-
-h5, h6 {
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 700 !important;
-  color: #FFFFFF !important;
+  margin: 0;
 }
 
 /* ══════════════════════════════════════════════════════════════
-   ADMIN PILL NAVBAR
+   FIX 1 — HIDE ADMIN PILL NAVBAR, ADD FIXED SIGN-OUT BUTTON
    ══════════════════════════════════════════════════════════════ */
 
-/*
-  The admin page uses the global .topbar class (same pill from index.css).
-  We just need to make sure:
-    - No X/close button appears (nothing in the markup generates one —
-      if it appears it comes from Bootstrap's .btn-close; kill it here)
-    - Sign Out button styled correctly
-*/
-
-/* Kill any stray Bootstrap btn-close inside the pill */
-.topbar .btn-close,
-.topbar [aria-label="Close"],
-.topbar [data-bs-dismiss] {
+/* Hide the topbar pill entirely on the admin page */
+.admin-page-wrap .topbar,
+.admin-page-wrap .admin-topbar-hidden {
   display: none !important;
 }
 
-/* Override generic btn-outline-secondary inside topbar to match spec */
-.topbar .btn-outline-secondary {
-  background: transparent !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
-  color: #FFFFFF !important;
-  border-radius: 9999px !important;
-  padding: 6px 16px !important;
-  font-size: 13px !important;
-  font-weight: 500 !important;
-  transition: border-color 150ms ease, color 150ms ease !important;
-}
-
-.topbar .btn-outline-secondary:hover {
-  border-color: #1DB954 !important;
-  color: #1DB954 !important;
-  background: transparent !important;
-}
-
-/* Logo span inside topbar */
-.topbar .logo span {
+/* Standalone Sign Out button — fixed top-right corner */
+.admin-signout-btn {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  z-index: 100;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: #FFFFFF;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 500;
   font-family: 'DM Sans', sans-serif;
+  border-radius: 9999px;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: border-color 150ms ease, color 150ms ease;
+  white-space: nowrap;
+}
+
+.admin-signout-btn:hover {
+  border-color: #1DB954;
+  color: #1DB954;
 }
 
 /* ══════════════════════════════════════════════════════════════
-   STAT CARDS — 4-column CSS grid, full width
+   PAGE WRAP
    ══════════════════════════════════════════════════════════════ */
 
-/* Replace Bootstrap .row.g-3 grid with a proper 4-col CSS grid */
+.admin-page-wrap {
+  background: #121212 !important;
+  min-height: 100vh;
+  padding-top: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FIX 2 — FULL WIDTH LAYOUT CONTAINER
+   ══════════════════════════════════════════════════════════════ */
+
+/* Override Bootstrap's .container to be full-width up to 1200px, centered */
+.admin-page-wrap .container {
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 64px 24px 60px !important; /* 64px top = room for fixed sign-out btn */
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 768px) {
+  .admin-page-wrap .container {
+    padding: 72px 16px 48px !important;
+  }
+}
+
+/* ── Headings ── */
+h3, h4, h5, h6 {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700 !important;
+  color: #FFFFFF !important;
+}
+
+/* Dashboard title */
+.admin-page-wrap h3.mb-4 {
+  font-size: 28px;
+  margin-bottom: 24px !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   STAT CARDS — 4-column CSS grid
+   ══════════════════════════════════════════════════════════════ */
+
+/* Override Bootstrap .row.g-3 → proper CSS grid */
 .admin-page-wrap .row.g-3 {
   display: grid !important;
   grid-template-columns: repeat(4, 1fr) !important;
@@ -116,13 +112,13 @@ h5, h6 {
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 520px) {
   .admin-page-wrap .row.g-3 {
     grid-template-columns: 1fr !important;
   }
 }
 
-/* Override Bootstrap col-md-3 inside the stat row */
+/* Make Bootstrap col children fill their grid cell */
 .admin-page-wrap .row.g-3 > [class*="col"] {
   width: 100% !important;
   max-width: 100% !important;
@@ -130,7 +126,7 @@ h5, h6 {
   padding: 0 !important;
 }
 
-/* ── Individual Stat Card ── */
+/* ── Stat Card ── */
 .stat-card {
   background: #181818 !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -140,35 +136,29 @@ h5, h6 {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
   transition: background 150ms ease !important;
   color: #FFFFFF !important;
-  /* remove Bootstrap's .card default: */
   display: block !important;
+  width: 100%;
 }
 
 .stat-card:hover {
   background: #1F1F1F !important;
 }
 
-/* Remove Bootstrap's .p-3 override — padding handled above */
+/* Override Bootstrap .p-3 */
 .stat-card.p-3 { padding: 24px !important; }
 
 /* Stat label */
 .stat-card .text-muted {
+  display: block;
   color: #6A6A6A !important;
   font-size: 11px !important;
   font-weight: 600 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.08em !important;
   margin-bottom: 8px !important;
-  display: block;
 }
 
-/* Remove inline font-size:14px from JSX .text-muted div */
-.stat-card div[style] {
-  font-size: 11px !important;
-  color: #6A6A6A !important;
-}
-
-/* Stat number (h3 inside card) */
+/* Stat number */
 .stat-card h3 {
   font-size: 42px !important;
   font-weight: 700 !important;
@@ -178,54 +168,73 @@ h5, h6 {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   SECTION CARDS — Top Sellers + Tab Panels
+   FIX 3 — SECTION CARDS: NO GRADIENT BORDERS
+   (Top Sellers, AI Console, and all tab panel cards)
    ══════════════════════════════════════════════════════════════ */
 
-/* Both .section-card and .card — full-width dark containers */
 .section-card,
 .card:not(.stat-card) {
   background: #181818 !important;
+  /* Single clean border on all four sides — no gradient, no accent colour */
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  /* Kill any gradient border-image */
+  border-image: none !important;
+  border-image-source: none !important;
+  background-clip: padding-box;
   border-radius: 16px !important;
   box-shadow: none !important;
   color: #FFFFFF !important;
-  /* Remove any Bootstrap gradient left-border the theme may have added */
-  border-left: none !important;
-  border-image: none !important;
+  /* Full width */
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
-/* Re-apply correct uniform border after clearing border-left */
-.section-card,
-.card:not(.stat-card) {
+/* Prevent any pseudo-element gradient tricks */
+.section-card::before,
+.section-card::after,
+.card:not(.stat-card)::before,
+.card:not(.stat-card)::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Override any inline style attrs set in JSX */
+.card.section-card[style],
+.section-card[style] {
+  background: #181818 !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 16px !important;
 }
 
+/* Card body */
 .card-body {
   background: transparent !important;
   color: #FFFFFF !important;
   padding: 24px !important;
 }
 
-/* Top Sellers heading */
+/* Section headings inside cards */
 .card-body > h5,
 .card-body > h5[style] {
   color: #FFFFFF !important;
   font-size: 20px !important;
   font-weight: 700 !important;
-  margin-bottom: 16px !important;
-}
-
-/* Section panel headings (All Listings, Active Users, etc.) */
-.card-body > h5 {
-  font-size: 20px !important;
-  font-weight: 700 !important;
-  color: #FFFFFF !important;
   margin-bottom: 20px !important;
 }
 
 /* ══════════════════════════════════════════════════════════════
-   TABLES
+   TABLES — full-width, no clipping
    ══════════════════════════════════════════════════════════════ */
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
 
 .table {
   color: #FFFFFF !important;
@@ -233,12 +242,15 @@ h5, h6 {
   border-color: transparent !important;
   width: 100% !important;
   font-size: 14px !important;
+  table-layout: fixed;
 }
 
-/* Ensure table doesn't clip Status column */
-.table-responsive {
-  overflow-x: auto;
-}
+/* Users table column widths */
+.table colgroup col:nth-child(1) { width: 20%; }
+.table colgroup col:nth-child(2) { width: 35%; }
+.table colgroup col:nth-child(3) { width: 20%; }
+.table colgroup col:nth-child(4) { width: 12%; }
+.table colgroup col:nth-child(5) { width: 13%; }
 
 .table th {
   background-color: transparent !important;
@@ -249,19 +261,23 @@ h5, h6 {
   letter-spacing: 0.08em !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-top: none !important;
-  padding: 0 16px 10px 0 !important;
+  padding: 0 12px 10px 0 !important;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   vertical-align: bottom;
 }
 
 .table td {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
   border-top: none !important;
-  padding: 14px 16px 14px 0 !important;
+  padding: 14px 12px 14px 0 !important;
   color: #FFFFFF !important;
   background-color: transparent !important;
   vertical-align: middle;
   font-size: 14px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .table tbody tr:last-child td {
@@ -272,32 +288,32 @@ h5, h6 {
   background: transparent !important;
 }
 
-/* Seller name in Top Sellers */
-.table td:first-child {
-  font-weight: 500;
-  color: #FFFFFF !important;
-}
-
-/* Item count cell — #1DB954 accent */
-.table td strong {
-  color: #1DB954 !important;
-  font-weight: 600 !important;
-}
-
 /* Row hover */
 .table-hover tbody tr:hover td {
   background-color: rgba(255, 255, 255, 0.03) !important;
 }
 
-/* Stripe (very subtle) */
+/* Stripe */
 .table-striped tbody tr:nth-of-type(odd) td {
   background-color: rgba(255, 255, 255, 0.015) !important;
 }
 
-/* Email + secondary text cells */
-.table td.text-muted,
-.table td .text-muted {
+/* Item count cell: strong → #1DB954 */
+.table td strong {
+  color: #1DB954 !important;
+  font-weight: 600 !important;
+}
+
+/* Secondary text (email, student #) */
+.table td:nth-child(2),
+.table td:nth-child(3) {
   color: #B3B3B3 !important;
+}
+
+/* Name column always white */
+.table td:first-child {
+  color: #FFFFFF !important;
+  font-weight: 500;
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -306,28 +322,25 @@ h5, h6 {
 
 .badge {
   font-weight: 700 !important;
-  letter-spacing: 0.02em;
   border-radius: 9999px !important;
   padding: 3px 10px !important;
   font-size: 11px !important;
   white-space: nowrap;
+  display: inline-block;
 }
 
-/* ACTIVE / success → green */
 .badge.bg-success {
   background: rgba(29, 185, 84, 0.12) !important;
   color: #1DB954 !important;
   border: 1px solid rgba(29, 185, 84, 0.25) !important;
 }
 
-/* BANNED / danger → red */
 .badge.bg-danger {
   background: rgba(226, 33, 52, 0.12) !important;
   color: #E22134 !important;
   border: 1px solid rgba(226, 33, 52, 0.25) !important;
 }
 
-/* warning → amber */
 .badge.bg-warning,
 .badge.bg-warning.text-dark {
   background: rgba(255, 165, 0, 0.12) !important;
@@ -335,7 +348,6 @@ h5, h6 {
   border: 1px solid rgba(255, 165, 0, 0.25) !important;
 }
 
-/* primary → blue */
 .badge.bg-primary {
   background: rgba(96, 165, 250, 0.12) !important;
   color: #60A5FA !important;
@@ -346,11 +358,12 @@ h5, h6 {
    SECTION TAB BAR
    ══════════════════════════════════════════════════════════════ */
 
-/* Tab row — just a flex row of pill buttons, no bg */
 .mb-4.d-flex.flex-wrap.gap-2 {
+  display: flex !important;
+  flex-wrap: wrap !important;
   gap: 8px !important;
+  width: 100% !important;
   margin-bottom: 20px !important;
-  flex-wrap: wrap;
 }
 
 .tab-btn {
@@ -441,9 +454,7 @@ h5, h6 {
   color: #E22134 !important;
 }
 
-.btn-danger:hover {
-  background: rgba(226, 33, 52, 0.25) !important;
-}
+.btn-danger:hover { background: rgba(226, 33, 52, 0.25) !important; }
 
 .btn-outline-primary {
   background: transparent !important;
@@ -569,12 +580,11 @@ textarea.form-control:focus {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   MISC OVERRIDES
+   MISC
    ══════════════════════════════════════════════════════════════ */
 
 .text-muted { color: #B3B3B3 !important; }
 
-/* Toast */
 .toast.show {
   background: #282828 !important;
   color: #FFFFFF !important;
@@ -582,8 +592,8 @@ textarea.form-control:focus {
   border-radius: 10px !important;
   font-family: 'DM Sans', sans-serif !important;
   position: fixed;
-  top: 80px;
-  right: 20px;
+  top: 20px;
+  right: 80px; /* offset left of sign-out btn */
   z-index: 1100;
   padding: 12px 18px;
   min-width: 220px;
