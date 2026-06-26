@@ -77,13 +77,6 @@ UniMarket_v2/
 │   ├── App.jsx            # Router, route definitions, auth provider wrapper
 │   ├── index.css          # Global design system tokens, Navbar, Bootstrap overrides
 │   └── main.jsx           # React DOM entry point
-├── docs/
-│   ├── overview.md              # System overview and tech stack
-│   ├── database-schema.md       # Table schemas, ERD, and RPC documentation
-│   ├── user-flows.md            # Registration, login, listing, and purchase flows
-│   ├── admin-system.md          # Admin dashboard moderation workflows
-│   ├── security-and-architecture.md  # Security vulnerability analysis
-│   └── improvements-roadmap.md  # Bug fixes and feature roadmap
 ├── vanilla-src/           # Archived v1 implementation (HTML/CSS/JS — do not modify)
 ├── package.json
 └── vite.config.js
