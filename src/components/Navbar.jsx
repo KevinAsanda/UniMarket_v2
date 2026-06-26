@@ -29,9 +29,9 @@ export const Navbar = () => {
   return (
     <>
       <nav className="topbar">
-        {/* Logo */}
-        <Link className="logo" to="/" style={{ textDecoration: 'none' }} aria-label="UniMarket Home">
-          <img src="/images/1.svg" alt="UniMarket" style={{ height: '30px', width: 'auto' }} />
+        {/* Logo — green circle */}
+        <Link className="logo-circle" to="/" aria-label="UniMarket Home">
+          <img src="/images/1.svg" alt="UniMarket" />
         </Link>
 
         {/* Desktop Nav Links */}
@@ -41,28 +41,28 @@ export const Navbar = () => {
             end
             className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
           >
-            <IconBook2 size={16} strokeWidth={2} style={{ marginRight: '6px', verticalAlign: 'middle' }} />
+            <IconBook2 size={16} strokeWidth={2} />
             Catalogue
           </NavLink>
           <NavLink
             to="/sell"
             className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
           >
-            <IconTag size={16} strokeWidth={2} style={{ marginRight: '6px', verticalAlign: 'middle' }} />
+            <IconTag size={16} strokeWidth={2} />
             Sell
           </NavLink>
           <NavLink
             to="/activity"
             className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
           >
-            <IconPackage size={16} strokeWidth={2} style={{ marginRight: '6px', verticalAlign: 'middle' }} />
+            <IconPackage size={16} strokeWidth={2} />
             Activity
           </NavLink>
           <NavLink
             to="/settings"
             className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
           >
-            <IconSettings size={16} strokeWidth={2} style={{ marginRight: '6px', verticalAlign: 'middle' }} />
+            <IconSettings size={16} strokeWidth={2} />
             Settings
           </NavLink>
         </div>
@@ -108,7 +108,7 @@ export const Navbar = () => {
             </span>
           </NavLink>
           <button className="btn-signout" onClick={signOut} aria-label="Sign out">
-            <IconLogout size={14} strokeWidth={2} style={{ marginRight: '5px', verticalAlign: 'middle' }} />
+            <IconLogout size={14} strokeWidth={2} />
             Sign Out
           </button>
           <button

@@ -3,6 +3,9 @@
    All values traceable to DESIGN.md spec.
    ========================================================================== */
 
+/* DM Sans – closest open-source match to Spotify Circular */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap');
+
 :root {
   /* Colors */
   --spotify-green: #1DB954;
@@ -45,8 +48,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  /* Circular / Helvetica Neue stack — from DESIGN.md typography spec */
-  font-family: 'Circular', 'CircularSp', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
   background-color: var(--spotify-bg);
   color: var(--spotify-text);
   min-height: 100vh;
@@ -94,82 +96,117 @@ a:hover {
   background: var(--spotify-muted);
 }
 
-/* ── Topbar (Navbar) ── */
-/* Height: 64px per design spec. Background #121212, 1px border #3E3E3E */
+/* ── Topbar (Navbar) — Floating Pill ── */
 .topbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: var(--nav-height); /* 64px */
-  padding: 0 32px;
-  background: var(--spotify-bg);
-  border-bottom: 1px solid var(--spotify-border);
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  max-width: calc(100vw - 32px);
+  height: auto;
+  padding: 6px 6px 6px 14px;
+  background: #121212;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
   z-index: 1000;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 0;
+  font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 
-/* Logo — SVG only, no text label duplicate */
+/* Logo circle — #1DB954 green circle, black icon */
+.logo-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #1DB954;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 16px;
+  transition: opacity 150ms ease;
+}
+
+.logo-circle:hover {
+  opacity: 0.85;
+}
+
+.logo-circle img {
+  height: 18px;
+  width: auto;
+  /* Invert SVG to black since the circle is green */
+  filter: brightness(0);
+}
+
+/* Legacy .logo alias — keep for non-breaking compatibility */
 .logo {
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  opacity: 1;
-  transition: opacity var(--duration-base) var(--ease-standard);
 }
 
-.logo:hover {
-  opacity: 0.8;
-}
-
-/* Nav links group — centered */
+/* Nav links group */
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 4px;
-  margin: 0 auto;
+  gap: 28px;
+  padding: 0 8px;
 }
 
-/* Nav items — #FFFFFF active, #A7A7A7 inactive — NO pill borders, NO white fill */
+/* Nav items */
 .nav-link {
   display: inline-flex;
   align-items: center;
-  padding: 6px 16px;
-  border-radius: var(--spotify-radius-pill);
+  gap: 6px;
+  padding: 6px 2px;
   font-size: 14px;
-  font-weight: 600;
-  color: var(--spotify-muted);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #B3B3B3;
   text-decoration: none;
-  transition: color var(--duration-base) var(--ease-standard),
-              background-color var(--duration-base) var(--ease-standard);
+  transition: color 150ms ease;
   position: relative;
-  letter-spacing: -0.01em;
+  background: transparent;
+  border-radius: 0;
+  white-space: nowrap;
 }
 
-.nav-link:hover {
-  color: var(--spotify-text);
+.nav-link svg {
+  color: #B3B3B3;
+  transition: color 150ms ease;
+  flex-shrink: 0;
+}
+
+.nav-link:hover,
+.nav-link:hover svg {
+  color: #FFFFFF;
+}
+
+/* Active state */
+.nav-link.active {
+  color: #FFFFFF;
   background: transparent;
 }
 
-/* Active state: #FFFFFF text + #282828 background fill — clean, no glow/outline */
-.nav-link.active {
-  color: var(--spotify-text);
-  background: var(--spotify-surface-2);
+.nav-link.active svg {
+  color: #FFFFFF;
 }
 
-/* Active indicator underline — subtle #1DB954 bottom bar */
+/* Active indicator — #1DB954 dot beneath the link */
 .nav-link.active::after {
   content: '';
   position: absolute;
-  bottom: -1px;
+  bottom: -3px;
   left: 50%;
   transform: translateX(-50%);
-  width: 20px;
-  height: 2px;
-  background: var(--spotify-green);
-  border-radius: var(--spotify-radius-pill);
+  width: 4px;
+  height: 4px;
+  background: #1DB954;
+  border-radius: 9999px;
 }
 
 /* Right side user area */
@@ -178,24 +215,26 @@ a:hover {
   align-items: center;
   gap: 12px;
   flex-shrink: 0;
+  margin-left: 24px;
 }
 
-/* User pill — compact, no harsh styling */
+/* User pill — link wrapper */
 .user-pill {
   display: flex;
   align-items: center;
   gap: 8px;
-  border-radius: var(--spotify-radius-pill);
-  padding: 4px 12px 4px 4px;
+  border-radius: 9999px;
+  padding: 0;
+  text-decoration: none;
 }
 
-/* Avatar — 32x32 circle, #282828 bg, #FFFFFF initials */
+/* Avatar — #1DB954 bg, black bold initials */
 .user-avatar {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: var(--spotify-surface-2);
-  color: var(--spotify-text);
+  background: #1DB954;
+  color: #000000;
   font-size: 11px;
   font-weight: 700;
   display: flex;
@@ -203,43 +242,53 @@ a:hover {
   justify-content: center;
   flex-shrink: 0;
   letter-spacing: 0.5px;
-  border: 1px solid var(--spotify-border);
+  position: relative;
 }
 
-/* User name — white, truncated */
+/* User name */
 .user-name {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--spotify-text);
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFFFFF;
   max-width: 120px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-/* Sign Out — ghost/outline style: #3E3E3E border, #FFFFFF text, no fill */
+/* Sign Out button */
 .btn-signout {
   display: inline-flex;
   align-items: center;
-  padding: 7px 14px;
-  border-radius: var(--spotify-radius-pill);
-  border: 1px solid var(--spotify-border);
+  gap: 5px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   background: transparent;
   font-size: 13px;
-  font-weight: 600;
-  color: var(--spotify-text);
+  font-weight: 500;
+  color: #B3B3B3;
   cursor: pointer;
-  transition: border-color var(--duration-base) var(--ease-standard),
-              color var(--duration-base) var(--ease-standard),
-              background var(--duration-base) var(--ease-standard);
+  transition: border-color 150ms ease, color 150ms ease;
   white-space: nowrap;
-  font-family: inherit;
+  font-family: 'DM Sans', inherit;
+}
+
+.btn-signout svg {
+  color: #B3B3B3;
+  transition: color 150ms ease;
 }
 
 .btn-signout:hover {
-  border-color: var(--spotify-error);
-  color: var(--spotify-error);
-  background: rgba(241, 94, 108, 0.08);
+  border-color: #1DB954;
+  color: #FFFFFF;
+}
+
+.btn-signout:hover svg {
+  color: #FFFFFF;
 }
 
 .btn-signout:active {
@@ -602,7 +651,9 @@ a:hover {
 /* ── Responsive rules ── */
 @media (max-width: 768px) {
   .topbar {
-    padding: 0 16px;
+    top: 12px;
+    padding: 6px 6px 6px 10px;
+    max-width: calc(100vw - 24px);
   }
   .nav-links {
     display: none;
@@ -612,6 +663,12 @@ a:hover {
   }
   .hamburger {
     display: flex;
+  }
+  .user-name {
+    display: none;
+  }
+  .nav-right {
+    margin-left: 8px;
   }
 }
 

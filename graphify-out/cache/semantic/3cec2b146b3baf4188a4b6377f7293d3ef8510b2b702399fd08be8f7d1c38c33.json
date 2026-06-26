@@ -1,0 +1,1 @@
+{"nodes": [{"id": "frontend_login_html", "label": "login.html", "file_type": "code", "source_file": "vanilla-src/frontend/login.html"}], "edges": [{"source": "frontend_login_html", "target": "javascript_login_onload", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "vanilla-src/frontend/login.html", "weight": 1.0}], "hyperedges": []}
