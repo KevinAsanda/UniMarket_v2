@@ -144,7 +144,14 @@ export const Signup = () => {
         card_verified:   false,
       });
 
-      if (insertError) { showToast(insertError.message, 'error'); setIsSubmitting(false); return; }
+      if (insertError) {
+        // Student row insert failed — sign out the auth user so they're not
+        // left with an orphaned account and can re-register cleanly.
+        await supabase.auth.signOut();
+        showToast(insertError.message, 'error');
+        setIsSubmitting(false);
+        return;
+      }
 
       showToast('Account created! Please sign in.', 'success');
       setTimeout(() => navigate('/login'), 2200);

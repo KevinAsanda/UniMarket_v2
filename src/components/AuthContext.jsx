@@ -15,10 +15,16 @@ export const AuthProvider = ({ children }) => {
         .eq('student_id', userId)
         .single();
 
-      if (error || !student) {
-        console.warn('Error fetching student profile:', error?.message);
+      if (error) {
+        // PGRST116 = no rows found. This is expected briefly after signup
+        // (auth user created, student row not yet inserted). Not a real error.
+        if (error.code !== 'PGRST116') {
+          console.error('Error fetching student profile:', error.message);
+        }
         return null;
       }
+
+      if (!student) return null;
 
       // If user is suspended or banned, sign out and clear
       if (student.account_status === 'suspended' || student.account_status === 'banned') {
