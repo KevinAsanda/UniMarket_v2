@@ -1,194 +1,384 @@
 /* ==========================================================================
-   UNIMARKET – ADMIN STYLES  (Spotify Design System)
+   UNIMARKET – ADMIN DASHBOARD STYLES  (Spotify Design System)
    ========================================================================== */
 
+/* ── Base ── */
 body {
   font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
   background-color: #121212 !important;
   color: #FFFFFF !important;
-  padding-top: 90px !important;
+  /* push content below floating pill (20px top + ~48px pill + 20px gap) */
+  padding-top: 0 !important;
 }
 
-/* ── Page wrap ── */
+/* ── Page Wrap ── */
 .admin-page-wrap {
   background: #121212 !important;
   min-height: 100vh;
+  padding-top: 88px; /* clear the floating pill navbar */
 }
 
-/* ── Container ── */
-.container { max-width: 1200px; }
+/* ── Dashboard Content Container ── */
+/* Replaces Bootstrap .container which was too narrow and left-aligned */
+.admin-page-wrap > .container {
+  max-width: 1200px !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  padding-top: 40px !important;
+}
 
-/* ── Headings ── */
-h3, h4, h5, h6 {
+@media (max-width: 768px) {
+  .admin-page-wrap > .container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    padding-top: 24px !important;
+  }
+}
+
+/* ── Page Heading ── */
+h3, h4 {
   font-family: 'DM Sans', sans-serif;
   font-weight: 700 !important;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
 }
 
-/* ──────────────────────────────────────────────────
+h5, h6 {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700 !important;
+  color: #FFFFFF !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
    ADMIN PILL NAVBAR
-   ────────────────────────────────────────────────── */
-.admin-topbar {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: fit-content;
-  max-width: calc(100vw - 32px);
-  height: auto;
-  padding: 6px 8px 6px 16px;
-  background: #121212;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 9999px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+   ══════════════════════════════════════════════════════════════ */
+
+/*
+  The admin page uses the global .topbar class (same pill from index.css).
+  We just need to make sure:
+    - No X/close button appears (nothing in the markup generates one —
+      if it appears it comes from Bootstrap's .btn-close; kill it here)
+    - Sign Out button styled correctly
+*/
+
+/* Kill any stray Bootstrap btn-close inside the pill */
+.topbar .btn-close,
+.topbar [aria-label="Close"],
+.topbar [data-bs-dismiss] {
+  display: none !important;
+}
+
+/* Override generic btn-outline-secondary inside topbar to match spec */
+.topbar .btn-outline-secondary {
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #FFFFFF !important;
+  border-radius: 9999px !important;
+  padding: 6px 16px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  transition: border-color 150ms ease, color 150ms ease !important;
+}
+
+.topbar .btn-outline-secondary:hover {
+  border-color: #1DB954 !important;
+  color: #1DB954 !important;
+  background: transparent !important;
+}
+
+/* Logo span inside topbar */
+.topbar .logo span {
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 600;
   font-family: 'DM Sans', sans-serif;
 }
 
-/* ── Stat Cards ── */
+/* ══════════════════════════════════════════════════════════════
+   STAT CARDS — 4-column CSS grid, full width
+   ══════════════════════════════════════════════════════════════ */
+
+/* Replace Bootstrap .row.g-3 grid with a proper 4-col CSS grid */
+.admin-page-wrap .row.g-3 {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 16px !important;
+  width: 100% !important;
+  margin: 0 0 24px 0 !important;
+  padding: 0 !important;
+}
+
+@media (max-width: 900px) {
+  .admin-page-wrap .row.g-3 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .admin-page-wrap .row.g-3 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Override Bootstrap col-md-3 inside the stat row */
+.admin-page-wrap .row.g-3 > [class*="col"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  flex: none !important;
+  padding: 0 !important;
+}
+
+/* ── Individual Stat Card ── */
 .stat-card {
   background: #181818 !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-top: 2px solid #1DB954 !important;
   border-radius: 16px !important;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4) !important;
-  transition: transform 200ms ease, background 200ms ease !important;
+  padding: 24px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
+  transition: background 150ms ease !important;
   color: #FFFFFF !important;
+  /* remove Bootstrap's .card default: */
+  display: block !important;
 }
 
 .stat-card:hover {
-  transform: translateY(-3px);
-  background: #1E1E1E !important;
+  background: #1F1F1F !important;
 }
 
-/* Stat number */
-.stat-card h3 {
-  font-size: 36px !important;
-  font-weight: 700 !important;
-  color: #FFFFFF !important;
-  margin: 8px 0 4px;
-}
+/* Remove Bootstrap's .p-3 override — padding handled above */
+.stat-card.p-3 { padding: 24px !important; }
 
 /* Stat label */
 .stat-card .text-muted {
-  color: #B3B3B3 !important;
+  color: #6A6A6A !important;
   font-size: 11px !important;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  margin-bottom: 8px !important;
+  display: block;
 }
 
-/* ── Section / Top-Sellers Card ── */
+/* Remove inline font-size:14px from JSX .text-muted div */
+.stat-card div[style] {
+  font-size: 11px !important;
+  color: #6A6A6A !important;
+}
+
+/* Stat number (h3 inside card) */
+.stat-card h3 {
+  font-size: 42px !important;
+  font-weight: 700 !important;
+  color: #FFFFFF !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SECTION CARDS — Top Sellers + Tab Panels
+   ══════════════════════════════════════════════════════════════ */
+
+/* Both .section-card and .card — full-width dark containers */
 .section-card,
-.card {
+.card:not(.stat-card) {
   background: #181818 !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: 16px !important;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: none !important;
   color: #FFFFFF !important;
+  /* Remove any Bootstrap gradient left-border the theme may have added */
+  border-left: none !important;
+  border-image: none !important;
 }
 
-/* Inner card-body padding reset */
-.card-body {
-  background: transparent !important;
-  color: #FFFFFF !important;
-}
-
-/* Section card inline-style overrides (light bg set in JSX) */
-.card.section-card[style] {
-  background: #181818 !important;
+/* Re-apply correct uniform border after clearing border-left */
+.section-card,
+.card:not(.stat-card) {
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
-/* ── Tables ── */
+.card-body {
+  background: transparent !important;
+  color: #FFFFFF !important;
+  padding: 24px !important;
+}
+
+/* Top Sellers heading */
+.card-body > h5,
+.card-body > h5[style] {
+  color: #FFFFFF !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  margin-bottom: 16px !important;
+}
+
+/* Section panel headings (All Listings, Active Users, etc.) */
+.card-body > h5 {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: #FFFFFF !important;
+  margin-bottom: 20px !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TABLES
+   ══════════════════════════════════════════════════════════════ */
+
 .table {
   color: #FFFFFF !important;
   background-color: transparent !important;
-  border-color: rgba(255, 255, 255, 0.06) !important;
+  border-color: transparent !important;
+  width: 100% !important;
+  font-size: 14px !important;
+}
+
+/* Ensure table doesn't clip Status column */
+.table-responsive {
+  overflow-x: auto;
 }
 
 .table th {
   background-color: transparent !important;
   color: #6A6A6A !important;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  padding: 12px 16px !important;
+  border-top: none !important;
+  padding: 0 16px 10px 0 !important;
   white-space: nowrap;
+  vertical-align: bottom;
 }
 
 .table td {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
-  padding: 13px 16px !important;
+  border-top: none !important;
+  padding: 14px 16px 14px 0 !important;
   color: #FFFFFF !important;
   background-color: transparent !important;
   vertical-align: middle;
+  font-size: 14px !important;
 }
 
 .table tbody tr:last-child td {
   border-bottom: none !important;
 }
 
-.table-hover tbody tr:hover td {
-  background-color: rgba(255, 255, 255, 0.04) !important;
-}
-
-.table-striped tbody tr:nth-of-type(odd) td {
-  background-color: rgba(255, 255, 255, 0.02) !important;
-}
-
-/* thead row bg */
 .table thead tr {
   background: transparent !important;
 }
 
-/* ── Badges ── */
+/* Seller name in Top Sellers */
+.table td:first-child {
+  font-weight: 500;
+  color: #FFFFFF !important;
+}
+
+/* Item count cell — #1DB954 accent */
+.table td strong {
+  color: #1DB954 !important;
+  font-weight: 600 !important;
+}
+
+/* Row hover */
+.table-hover tbody tr:hover td {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+/* Stripe (very subtle) */
+.table-striped tbody tr:nth-of-type(odd) td {
+  background-color: rgba(255, 255, 255, 0.015) !important;
+}
+
+/* Email + secondary text cells */
+.table td.text-muted,
+.table td .text-muted {
+  color: #B3B3B3 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   BADGES
+   ══════════════════════════════════════════════════════════════ */
+
 .badge {
   font-weight: 700 !important;
   letter-spacing: 0.02em;
   border-radius: 9999px !important;
   padding: 3px 10px !important;
   font-size: 11px !important;
+  white-space: nowrap;
 }
 
+/* ACTIVE / success → green */
 .badge.bg-success {
-  background: rgba(29, 185, 84, 0.15) !important;
+  background: rgba(29, 185, 84, 0.12) !important;
   color: #1DB954 !important;
+  border: 1px solid rgba(29, 185, 84, 0.25) !important;
 }
 
+/* BANNED / danger → red */
 .badge.bg-danger {
-  background: rgba(226, 33, 52, 0.15) !important;
+  background: rgba(226, 33, 52, 0.12) !important;
   color: #E22134 !important;
+  border: 1px solid rgba(226, 33, 52, 0.25) !important;
 }
 
-.badge.bg-warning {
-  background: rgba(255, 165, 0, 0.15) !important;
+/* warning → amber */
+.badge.bg-warning,
+.badge.bg-warning.text-dark {
+  background: rgba(255, 165, 0, 0.12) !important;
   color: #FFA500 !important;
+  border: 1px solid rgba(255, 165, 0, 0.25) !important;
 }
 
+/* primary → blue */
 .badge.bg-primary {
-  background: rgba(96, 165, 250, 0.15) !important;
+  background: rgba(96, 165, 250, 0.12) !important;
   color: #60A5FA !important;
+  border: 1px solid rgba(96, 165, 250, 0.25) !important;
 }
 
-/* ── Tab Buttons ── */
+/* ══════════════════════════════════════════════════════════════
+   SECTION TAB BAR
+   ══════════════════════════════════════════════════════════════ */
+
+/* Tab row — just a flex row of pill buttons, no bg */
+.mb-4.d-flex.flex-wrap.gap-2 {
+  gap: 8px !important;
+  margin-bottom: 20px !important;
+  flex-wrap: wrap;
+}
+
 .tab-btn {
-  padding: 8px 20px !important;
-  font-size: 14px !important;
-  font-weight: 600 !important;
+  padding: 8px 18px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
   font-family: 'DM Sans', sans-serif !important;
   border-radius: 9999px !important;
   transition: all 150ms ease !important;
   white-space: nowrap;
+  cursor: pointer;
+  line-height: 1;
 }
 
-/* Active tab */
+/* Inactive */
+.tab-btn.btn-secondary {
+  background: #181818 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #B3B3B3 !important;
+}
+
+.tab-btn.btn-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: #FFFFFF !important;
+  background: #181818 !important;
+}
+
+/* Active */
 .tab-btn.btn-primary {
   background: #1DB954 !important;
   border: none !important;
@@ -198,22 +388,13 @@ h3, h4, h5, h6 {
 
 .tab-btn.btn-primary:hover {
   background: #1ED760 !important;
+  color: #000000 !important;
 }
 
-/* Inactive tab */
-.tab-btn.btn-secondary {
-  background: transparent !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  color: #B3B3B3 !important;
-}
+/* ══════════════════════════════════════════════════════════════
+   GENERAL BUTTONS
+   ══════════════════════════════════════════════════════════════ */
 
-.tab-btn.btn-secondary:hover {
-  border-color: rgba(255, 255, 255, 0.5) !important;
-  color: #FFFFFF !important;
-  background: transparent !important;
-}
-
-/* ── General Buttons ── */
 .btn {
   font-family: 'DM Sans', sans-serif !important;
   font-weight: 600 !important;
@@ -252,8 +433,16 @@ h3, h4, h5, h6 {
   font-weight: 700 !important;
 }
 
-.btn-success:hover {
-  background: #1ED760 !important;
+.btn-success:hover { background: #1ED760 !important; }
+
+.btn-danger {
+  background: rgba(226, 33, 52, 0.15) !important;
+  border: 1px solid rgba(226, 33, 52, 0.4) !important;
+  color: #E22134 !important;
+}
+
+.btn-danger:hover {
+  background: rgba(226, 33, 52, 0.25) !important;
 }
 
 .btn-outline-primary {
@@ -271,7 +460,10 @@ h3, h4, h5, h6 {
   padding: 4px 12px !important;
 }
 
-/* ── Forms / Inputs ── */
+/* ══════════════════════════════════════════════════════════════
+   FORMS / INPUTS
+   ══════════════════════════════════════════════════════════════ */
+
 .form-control,
 .form-select,
 textarea.form-control {
@@ -282,7 +474,6 @@ textarea.form-control {
   padding: 12px 16px !important;
   font-size: 14px !important;
   font-family: 'DM Sans', sans-serif !important;
-  transition: border-color 150ms ease;
 }
 
 .form-control::placeholder,
@@ -300,12 +491,8 @@ textarea.form-control:focus {
   color: #FFFFFF !important;
 }
 
-.form-select option {
-  background: #282828;
-  color: #FFFFFF;
-}
+.form-select option { background: #282828; color: #FFFFFF; }
 
-/* Form labels */
 .form-label {
   font-size: 12px !important;
   font-weight: 600 !important;
@@ -315,10 +502,11 @@ textarea.form-control:focus {
   margin-bottom: 6px !important;
 }
 
-/* ── AI Review card specifics ── */
-/* Risk badges */
-.risk-low,
-.badge-risk-low {
+/* ══════════════════════════════════════════════════════════════
+   AI REVIEW — Risk Badges
+   ══════════════════════════════════════════════════════════════ */
+
+.risk-low, .badge-risk-low {
   background: rgba(29, 185, 84, 0.15) !important;
   color: #1DB954 !important;
   border-radius: 9999px !important;
@@ -328,8 +516,7 @@ textarea.form-control:focus {
   display: inline-block;
 }
 
-.risk-medium,
-.badge-risk-medium {
+.risk-medium, .badge-risk-medium {
   background: rgba(255, 165, 0, 0.15) !important;
   color: #FFA500 !important;
   border-radius: 9999px !important;
@@ -339,8 +526,7 @@ textarea.form-control:focus {
   display: inline-block;
 }
 
-.risk-high,
-.badge-risk-high {
+.risk-high, .badge-risk-high {
   background: rgba(226, 33, 52, 0.15) !important;
   color: #E22134 !important;
   border-radius: 9999px !important;
@@ -350,7 +536,10 @@ textarea.form-control:focus {
   display: inline-block;
 }
 
-/* ── Modals ── */
+/* ══════════════════════════════════════════════════════════════
+   MODALS
+   ══════════════════════════════════════════════════════════════ */
+
 .modal-content {
   background: #181818 !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -379,11 +568,34 @@ textarea.form-control:focus {
   filter: invert(1) grayscale(1) brightness(2) !important;
 }
 
-/* ── Text overrides ── */
+/* ══════════════════════════════════════════════════════════════
+   MISC OVERRIDES
+   ══════════════════════════════════════════════════════════════ */
+
 .text-muted { color: #B3B3B3 !important; }
 
-/* ── Scrollbar ── */
+/* Toast */
+.toast.show {
+  background: #282828 !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 10px !important;
+  font-family: 'DM Sans', sans-serif !important;
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 1100;
+  padding: 12px 18px;
+  min-width: 220px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: #181818; }
-::-webkit-scrollbar-thumb { background: #282828; border-radius: 6px; border: 2px solid #181818; }
+::-webkit-scrollbar-thumb {
+  background: #282828;
+  border-radius: 6px;
+  border: 2px solid #181818;
+}
 ::-webkit-scrollbar-thumb:hover { background: #3A3A3A; }

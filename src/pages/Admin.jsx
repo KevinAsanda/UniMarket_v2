@@ -463,32 +463,32 @@ export const Admin = () => {
         </div>
       )}
 
-      <div className="container mt-4">
-        <h3>Admin Dashboard</h3>
+      <div className="container">
+        <h3 className="mb-4">Admin Dashboard</h3>
 
         {/* STAT CARDS */}
         <div className="row g-3 mb-4">
           <div className="col-md-3">
             <div className="card stat-card text-center p-3">
-              <div style={{ fontSize: '14px' }} className="text-muted">Total Users</div>
+              <div className="text-muted">Total Users</div>
               <h3 className="mt-2">{stats.users}</h3>
             </div>
           </div>
           <div className="col-md-3">
             <div className="card stat-card text-center p-3">
-              <div style={{ fontSize: '14px' }} className="text-muted">Active Listings</div>
+              <div className="text-muted">Active Listings</div>
               <h3 className="mt-2">{stats.listings}</h3>
             </div>
           </div>
           <div className="col-md-3">
             <div className="card stat-card text-center p-3">
-              <div style={{ fontSize: '14px' }} className="text-muted">Unavailable</div>
+              <div className="text-muted">Unavailable</div>
               <h3 className="mt-2">{stats.unavailable}</h3>
             </div>
           </div>
           <div className="col-md-3">
             <div className="card stat-card text-center p-3">
-              <div style={{ fontSize: '14px' }} className="text-muted">Complaints</div>
+              <div className="text-muted">Complaints</div>
               <h3 className="mt-2">{stats.complaints}</h3>
             </div>
           </div>
