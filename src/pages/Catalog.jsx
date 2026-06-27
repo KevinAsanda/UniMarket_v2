@@ -494,7 +494,7 @@ export const Catalog = () => {
                             style={alreadyFlagged ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
                             disabled={alreadyFlagged}
                           >
-                            <IconFlag size={14} strokeWidth={2} />
+                            <IconFlag size={18} strokeWidth={2} />
                           </button>
                           {/* Formal complaint to admin */}
                           <button
@@ -505,7 +505,7 @@ export const Catalog = () => {
                             onClick={() => handleOpenReportModal(p)}
                             style={{ marginLeft: 2 }}
                           >
-                            <IconAlertTriangle size={14} strokeWidth={2} />
+                            <IconAlertTriangle size={18} strokeWidth={2} />
                           </button>
                         </div>
                       )}

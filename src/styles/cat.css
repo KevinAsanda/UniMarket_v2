@@ -397,8 +397,8 @@
 
 /* Report button: small icon button, #F15E6C with tooltip */
 .btn-report {
-  width: 28px;
-  height: 28px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: 1px solid var(--spotify-border);
   background: transparent;
