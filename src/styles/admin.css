@@ -304,6 +304,13 @@ h3, h4, h5, h6 {
   font-weight: 600 !important;
 }
 
+/* Item names in white */
+.item-name,
+.table td strong.item-name {
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+}
+
 /* Secondary text (email, student #) */
 .table td:nth-child(2),
 .table td:nth-child(3) {

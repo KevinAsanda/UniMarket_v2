@@ -543,18 +543,18 @@ export const Admin = () => {
 
         {/* ── LISTINGS PANEL ── */}
         {activeTab === 'listings' && (
-          <div className="card section-card">
+          <div className="card section-card" style={{ width: '100%', boxSizing: 'border-box', maxWidth: 'none', float: 'none', position: 'relative', display: 'block' }}>
             <div className="card-body">
               <h5 style={{ fontWeight: 600 }}>All Listings</h5>
               <div className="table-responsive">
-                <table className="table table-striped align-middle mt-3 mb-0" style={{ fontSize: '14px' }}>
+                <table className="table table-striped align-middle mt-3 mb-0" style={{ fontSize: '14px', width: '100%', tableLayout: 'fixed', boxSizing: 'border-box' }}>
                   <thead>
                     <tr><th>Item</th><th>Seller</th><th>Price</th><th>Status</th><th>Action</th></tr>
                   </thead>
                   <tbody>
                     {listings.map((l) => (
                       <tr key={l.product_id}>
-                        <td><strong>{l.product_name}</strong></td>
+                        <td><strong className="item-name">{l.product_name}</strong></td>
                         <td>{l.students ? `${l.students.first_name} ${l.students.last_name}` : '—'}</td>
                         <td>R{parseFloat(l.price).toFixed(2)}</td>
                         <td>
@@ -581,14 +581,14 @@ export const Admin = () => {
 
         {/* ── FLAGGED LISTINGS PANEL ── */}
         {activeTab === 'flagged' && (
-          <div className="card section-card">
+          <div className="card section-card" style={{ width: '100%', boxSizing: 'border-box', maxWidth: 'none', float: 'none', position: 'relative', display: 'block' }}>
             <div className="card-body">
               <h5 style={{ fontWeight: 700, color: '#E22134' }}>🚩 Community-Flagged Listings</h5>
               <p className="text-muted mb-3" style={{ fontSize: '13px' }}>
                 Listings flagged by students as suspicious. Auto-hidden when ≥5 flags are reached. Review and take action below.
               </p>
               <div className="table-responsive">
-                <table className="table table-striped align-middle mt-3 mb-0" style={{ fontSize: '14px' }}>
+                <table className="table table-striped align-middle mt-3 mb-0" style={{ fontSize: '14px', width: '100%', tableLayout: 'fixed', boxSizing: 'border-box' }}>
                   <thead>
                     <tr>
                       <th>Item</th>
@@ -612,7 +612,7 @@ export const Admin = () => {
                         const isAutoHidden = prod.is_hidden && flagCount >= 5;
                         return (
                           <tr key={row.product_id}>
-                            <td><strong>{prod.product_name}</strong></td>
+                            <td><strong className="item-name">{prod.product_name}</strong></td>
                             <td>{prod.students ? `${prod.students.first_name} ${prod.students.last_name}` : '—'}</td>
                             <td>R{parseFloat(prod.price).toFixed(2)}</td>
                             <td>
@@ -681,11 +681,11 @@ export const Admin = () => {
 
         {/* ── USERS PANEL ── */}
         {activeTab === 'users' && (
-          <div className="card section-card">
+          <div className="card section-card" style={{ width: '100%', boxSizing: 'border-box', maxWidth: 'none', float: 'none', position: 'relative', display: 'block' }}>
             <div className="card-body">
               <h5 style={{ fontWeight: 600 }}>Active Users</h5>
               <div className="table-responsive">
-                <table className="table table-striped align-middle mt-3 mb-0" style={{ fontSize: '14px' }}>
+                <table className="table table-striped align-middle mt-3 mb-0" style={{ fontSize: '14px', width: '100%', tableLayout: 'fixed', boxSizing: 'border-box' }}>
                   <thead>
                     <tr><th>Name</th><th>Email</th><th>Student #</th><th>Status</th><th>Action</th></tr>
                   </thead>
@@ -719,12 +719,12 @@ export const Admin = () => {
 
         {/* ── APPROVALS PANEL ── */}
         {activeTab === 'approvals' && (
-          <div className="card section-card" style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: '12px' }}>
+          <div className="card section-card" style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: '12px', width: '100%', boxSizing: 'border-box', maxWidth: 'none', float: 'none', position: 'relative', display: 'block' }}>
             <div className="card-body">
               <h5 style={{ fontWeight: 600, color: '#d97706' }}>⏳ Pending Account Approvals</h5>
               <p className="text-muted mb-3" style={{ fontSize: '13px' }}>Compare the student card image against the submitted details before approving.</p>
               <div className="table-responsive">
-                <table className="table table-striped align-middle mt-3 mb-0" style={{ fontSize: '14px' }}>
+                <table className="table table-striped align-middle mt-3 mb-0" style={{ fontSize: '14px', width: '100%', tableLayout: 'fixed', boxSizing: 'border-box' }}>
                   <thead>
                     <tr><th>Student</th><th>Student #</th><th>Registered</th><th>Student Card</th><th>Actions</th></tr>
                   </thead>
@@ -763,18 +763,18 @@ export const Admin = () => {
 
         {/* ── COMPLAINTS PANEL ── */}
         {activeTab === 'complaints' && (
-          <div className="card section-card" style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: '12px' }}>
+          <div className="card section-card" style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: '12px', width: '100%', boxSizing: 'border-box', maxWidth: 'none', float: 'none', position: 'relative', display: 'block' }}>
             <div className="card-body">
               <h5 style={{ fontWeight: 600, color: '#dc2626' }}>Complaints Resolution</h5>
               <div className="table-responsive">
-                <table className="table table-striped align-middle mt-3 mb-0" style={{ fontSize: '14px' }}>
+                <table className="table table-striped align-middle mt-3 mb-0" style={{ fontSize: '14px', width: '100%', tableLayout: 'fixed', boxSizing: 'border-box' }}>
                   <thead>
                     <tr><th>Product</th><th>Reported User</th><th>Contact</th><th>Complaint Details</th><th>Date</th><th>Action</th></tr>
                   </thead>
                   <tbody>
                     {complaints.map((c) => (
                       <tr key={c.complaint_id}>
-                        <td><strong>{c.products?.product_name || '—'}</strong></td>
+                        <td><strong className="item-name">{c.products?.product_name || '—'}</strong></td>
                         <td>{c.students ? `${c.students.first_name} ${c.students.last_name}` : '—'}</td>
                         <td>{c.students?.contact_number || '—'}</td>
                         <td>{c.complaint_text}</td>
@@ -798,12 +798,20 @@ export const Admin = () => {
 
         {/* ── MANUAL REVIEW PANEL ── */}
         {activeTab === 'manualreview' && (
-          <div className="card section-card" style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: '12px' }}>
+          <div className="card section-card" style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: '12px', width: '100%', boxSizing: 'border-box', maxWidth: 'none', float: 'none', position: 'relative', display: 'block' }}>
             <div className="card-body">
               <h5 style={{ fontWeight: 600 }}>📋 Manual Listing Review</h5>
               <p className="text-muted mb-3" style={{ fontSize: '13px' }}>These listings were submitted while the AI review scanner was unavailable. Review and action.</p>
               <div className="table-responsive">
-                <table className="table table-striped align-middle mt-3 mb-0" style={{ fontSize: '14px' }}>
+                <table className="table table-striped align-middle mt-3 mb-0" style={{ fontSize: '14px', width: '100%', tableLayout: 'fixed', boxSizing: 'border-box' }}>
+                  <colgroup>
+                    <col style={{ width: '80px' }} />
+                    <col style={{ width: '18%' }} />
+                    <col style={{ width: '16%' }} />
+                    <col style={{ width: '10%' }} />
+                    <col style={{ width: '35%' }} />
+                    <col style={{ width: '12%' }} />
+                  </colgroup>
                   <thead>
                     <tr><th>Image</th><th>Item</th><th>Seller</th><th>Price</th><th>Description</th><th>Action</th></tr>
                   </thead>
@@ -819,7 +827,7 @@ export const Admin = () => {
                               <span className="text-muted">No Image</span>
                             )}
                           </td>
-                          <td><strong>{m.product_name}</strong></td>
+                          <td><strong className="item-name">{m.product_name}</strong></td>
                           <td>{m.students ? `${m.students.first_name} ${m.students.last_name}` : '—'}</td>
                           <td>R{parseFloat(m.price).toFixed(2)}</td>
                           <td>{m.description}</td>
