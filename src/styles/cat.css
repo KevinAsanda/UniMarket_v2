@@ -8,6 +8,7 @@
 .catalog-page-wrap {
   background: var(--spotify-bg);
   min-height: 100vh;
+  padding-top: 100px; /* clear the fixed floating pill navbar */
 }
 
 /* Main content area — account for floating pill navbar (top:20px + ~48px height + 20px gap) */

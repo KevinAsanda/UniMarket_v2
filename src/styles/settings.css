@@ -6,7 +6,7 @@
 .settings-page {
   min-height: 100vh;
   background: #121212;
-  padding-top: 88px; /* below floating pill navbar */
+  padding-top: 100px; /* below floating pill navbar */
   font-family: 'DM Sans', sans-serif;
 }
 

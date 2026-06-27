@@ -9,7 +9,7 @@ body {
   font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
   background-color: #121212 !important;
   color: #FFFFFF !important;
-  padding-top: 88px !important; /* account for floating pill navbar (top:20px + ~48px height + 20px gap) */
+  padding-top: 100px !important; /* account for floating pill navbar (top:20px + ~48px height + 20px gap) */
   min-height: 100vh;
 }
 
