@@ -316,7 +316,7 @@ export const Activity = () => {
   };
 
   return (
-    <div style={{ background: '#121212', minHeight: '100vh', paddingBottom: '60px' }}>
+    <div style={{ background: '#121212', minHeight: '100vh', paddingBottom: '60px', paddingTop: '110px', overflow: 'visible' }}>
       <Navbar />
 
       {/* Toast Notification */}
@@ -327,7 +327,7 @@ export const Activity = () => {
       )}
 
       {/* Hero Stats */}
-      <section className="page-hero">
+      <section className="page-hero" style={{ overflow: 'visible' }}>
         <div className="container">
           <div className="hero-inner">
             <div>
