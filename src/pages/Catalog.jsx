@@ -142,7 +142,6 @@ export const Catalog = () => {
         .eq('product_id', prod.product_id)
         .eq('is_booked', false);
 
-      console.log('[slots] data:', slotData, 'error:', error);
       if (error) throw error;
       setSlots(slotData || []);
     } catch (err) {
