@@ -1,1 +1,0 @@
-{"nodes": [{"id": "frontend_cat_html", "label": "cat.html", "file_type": "code", "source_file": "vanilla-src/frontend/cat.html"}], "edges": [{"source": "frontend_cat_html", "target": "javascript_cat_onload", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "vanilla-src/frontend/cat.html", "weight": 1.0}], "hyperedges": []}

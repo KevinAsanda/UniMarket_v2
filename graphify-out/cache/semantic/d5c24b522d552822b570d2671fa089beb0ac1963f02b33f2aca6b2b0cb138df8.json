@@ -1,1 +1,0 @@
-{"nodes": [{"id": "frontend_admin_html", "label": "admin.html", "file_type": "code", "source_file": "vanilla-src/frontend/admin.html"}], "edges": [{"source": "frontend_admin_html", "target": "javascript_admin_onload", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "vanilla-src/frontend/admin.html", "weight": 1.0}], "hyperedges": []}

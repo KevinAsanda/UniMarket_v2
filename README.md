@@ -77,7 +77,6 @@ UniMarket_v2/
 │   ├── App.jsx            # Router, route definitions, auth provider wrapper
 │   ├── index.css          # Global design system tokens, Navbar, Bootstrap overrides
 │   └── main.jsx           # React DOM entry point
-├── vanilla-src/           # Archived v1 implementation (HTML/CSS/JS — do not modify)
 ├── package.json
 └── vite.config.js
 ```
@@ -141,7 +140,6 @@ Apply the schema from [`docs/database-schema.md`](docs/database-schema.md) to yo
 
 - **Face ID login** sets `sessionStorage('um_student_id')` as a client-side fallback session. See the security doc for known risks and the recommended server-side fix.
 - **Admin AI review** calls the Anthropic Claude API. Currently this is a client-side call that will fail due to CORS. A Supabase Edge Function is the recommended path — see [`docs/improvements-roadmap.md`](docs/improvements-roadmap.md).
-- The `vanilla-src/` directory contains the original v1 implementation and is kept for reference only.
 
 ---
 
