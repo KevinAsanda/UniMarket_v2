@@ -1,169 +1,124 @@
-# UniMarket v2
+<div align="center">
+  <img src="docs/logo.svg" alt="UniMarket v2 Logo" width="96" />
+  <h1>UniMarket v2</h1>
+  <p>
+    <strong>A closed peer-to-peer campus marketplace for MUT students with OCR student-card verification, live face matching, and atomic PostgreSQL checkout.</strong>
+  </p>
 
-> A peer-to-peer campus marketplace for Mangosuthu University of Technology (MUT) students — built so students can buy and sell textbooks, electronics, and study materials directly on campus.
+  <p>
+    <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React 19" />
+    <img src="https://img.shields.io/badge/Vite-8-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite 8" />
+    <img src="https://img.shields.io/badge/Supabase-PostgreSQL%20%26%20RPC-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" />
+    <img src="https://img.shields.io/badge/Biometrics-Tesseract%20%2B%20face--api-1DB954?style=for-the-badge" alt="OCR & Face Verification" />
+    <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="MIT License" /></a>
+  </p>
 
-![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=white)
-![Supabase](https://img.shields.io/badge/Supabase-BaaS-3ECF8E?style=flat-square&logo=supabase&logoColor=white)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?style=flat-square&logo=bootstrap&logoColor=white)
-
----
-
-## What It Does
-
-UniMarket is a closed, student-only marketplace. Before a student can log in or list anything, they must pass a three-step identity gate: OCR extraction of their physical student card, fuzzy-match verification of their details, and a live face comparison against their card photo. An admin then manually approves their account.
-
-Once active, students can list items for sale with images and campus meetup slots, browse the full catalog, and complete purchases atomically — a PostgreSQL RPC function prevents double-bookings and race conditions at checkout.
-
----
-
-## Features
-
-| Module | Description |
-| :--- | :--- |
-| **Identity Gate Registration** | Tesseract.js OCR + face-api.js live face comparison + admin manual card approval |
-| **Dual-Path Login** | Standard Supabase Auth password login or client-side Face ID biometric login |
-| **Product Catalog** | Searchable grid of available listings with image, price, seller info, and buy flow |
-| **Sell Flow** | Three-step listing form: basics, image upload, meetup slot scheduling |
-| **Simulated AI Review** | Offline keyword engine auto-approves, flags, or rejects listings before they go live |
-| **Admin Dashboard** | Student approval queue, manual listing moderation, AI-assisted content review, complaint resolution, and user management |
-| **Atomic Checkout** | `place_order` Supabase RPC handles quantity decrement, slot booking, and order creation in a single transaction |
+  <p>
+    <a href="https://unimarket-frontend.onrender.com">Live Demo</a> •
+    <a href="#-screenshots">Screenshots</a> •
+    <a href="#-features">Features</a> •
+    <a href="#%EF%B8%8F-architecture--tech-stack">Architecture</a> •
+    <a href="#-getting-started">Getting Started</a>
+  </p>
+</div>
 
 ---
 
-## Tech Stack
+## What Is UniMarket v2?
+
+**UniMarket v2** is a closed, student-only campus marketplace built for Mangosuthu University of Technology (MUT) students to buy and sell textbooks, electronics, and study supplies safely on campus.
+
+Before a student can sign in or list an item, they pass a three-step identity gate: **Tesseract.js OCR** extraction from their physical student card, fuzzy-match validation against their institutional details (`@live.mut.ac.za`), and **live webcam face comparison** against the card photo—followed by admin verification. Checkout runs inside an atomic PostgreSQL RPC (`place_order`) to prevent double-bookings and race conditions on campus meetup slots.
+
+---
+
+## 📱 Screenshots
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/screenshots/01-login-faceid.png" alt="UniMarket Dual-Path Password and Face ID Login" width="100%" /><br />
+      <sub><strong>Dual-Path Authentication</strong> — Standard Supabase password login &amp; Face ID biometric tab</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/screenshots/02-register-identity-gate.png" alt="UniMarket Student Identity Verification Gate" width="100%" /><br />
+      <sub><strong>Student Identity Gate</strong> — Institutional email, student card OCR &amp; face verification</sub>
+    </td>
+  </tr>
+</table>
+
+---
+
+## ✨ Features
+
+- **3-Step Identity Gate Registration**: Client-side **Tesseract.js v7** OCR reads student numbers from physical MUT ID cards, pairs with **`@vladmandic/face-api`** live face comparison, and queues accounts for admin approval.
+- **Dual-Path Login**: Supports standard Supabase Auth email/password login alongside biometric Face ID verification (`Student` / `Admin` mode switch).
+- **3-Step Sell Flow & Pre-Moderation**: Guided listing creation with multi-image Supabase Storage upload, campus meetup slot scheduling, and automated policy review.
+- **Atomic Checkout (`place_order` RPC)**: Decrements listing quantities, reserves campus meetup slots, and writes order records in a single PostgreSQL transaction.
+- **Admin Moderation Console**: Student approval queue, listing moderation, complaint resolution, and user status management.
+
+---
+
+## 🛠️ Architecture & Tech Stack
+
+```mermaid
+flowchart LR
+  Student["MUT Student Browser"] --> ReactApp["React 19 + Vite 8 SPA"]
+  ReactApp --> OCR["Tesseract.js OCR + face-api.js"]
+  ReactApp --> SupaAuth["Supabase Auth"]
+  ReactApp --> SupaStorage["Supabase Storage (product-images / student-cards)"]
+  ReactApp --> SupaDB["PostgreSQL + place_order Atomic RPC"]
+```
 
 | Layer | Technology |
-| :--- | :--- |
-| **Framework** | React 19 + Vite 8 |
-| **Routing** | React Router DOM v7 |
-| **Styling** | Vanilla CSS (Spotify-derived design system) + Bootstrap 5.3 |
-| **Icons** | Tabler Icons (`@tabler/icons-react`) |
-| **OCR** | Tesseract.js v7 (client-side) |
-| **Face Detection** | `@vladmandic/face-api` |
-| **Backend / BaaS** | Supabase (PostgreSQL, Auth, Storage, RPC) |
+| --- | --- |
+| **Frontend** | React 19, Vite 8, React Router DOM v7, Bootstrap 5.3, Tabler Icons |
+| **Identity & Biometrics** | `tesseract.js` v7 (OCR), `@vladmandic/face-api` (face descriptor matching) |
+| **Backend / BaaS** | Supabase (PostgreSQL, Auth, Storage, Transactional RPCs) |
+| **Deployment** | Render Static Site ([`render.yaml`](render.yaml)) |
 
----
+### Project Structure
 
-## Project Structure
-
-```
+```text
 UniMarket_v2/
-├── public/
-│   └── images/          # Static assets: logo (1.svg), campus photo (mut.jpg), face-api model weights
+├── public/images/           # Campus imagery & face-api model weights
 ├── src/
-│   ├── components/
-│   │   ├── AuthContext.jsx      # Global auth state, session resolution, sign-out
-│   │   ├── Navbar.jsx           # Fixed top nav with active state and mobile drawer
-│   │   └── ProtectedRoute.jsx  # Route guard: redirects unauthenticated users to /login
-│   ├── pages/
-│   │   ├── Login.jsx      # Password + Face ID dual-path login
-│   │   ├── Signup.jsx     # Three-step identity verification registration
-│   │   ├── Catalog.jsx    # Main marketplace browsing grid
-│   │   ├── Sell.jsx       # Multi-step listing creation form
-│   │   ├── Activity.jsx   # Order history and seller listing management
-│   │   ├── Review.jsx     # Post-listing AI policy scan result screen
-│   │   └── Admin.jsx      # Admin moderation console
-│   ├── styles/
-│   │   ├── cat.css        # Catalog page grid, cards, modals
-│   │   ├── login.css      # Login page glass-card and form styles
-│   │   ├── signup.css     # Multi-step signup flow styles
-│   │   ├── activity.css   # Order and listing management table styles
-│   │   ├── admin.css      # Admin panel tab and table styles
-│   │   ├── listing.css    # Sell page step-form styles
-│   │   └── review.css     # AI review loader and verdict screen
-│   ├── utils/
-│   │   └── supabaseClient.js   # Supabase client initialisation
-│   ├── App.jsx            # Router, route definitions, auth provider wrapper
-│   ├── index.css          # Global design system tokens, Navbar, Bootstrap overrides
-│   └── main.jsx           # React DOM entry point
-├── package.json
-└── vite.config.js
+│   ├── components/          # AuthContext, Navbar, ProtectedRoute
+│   ├── pages/               # Login, Signup, Catalog, Sell, Activity, Review, Admin, Settings
+│   ├── styles/              # Page-scoped stylesheets & design tokens
+│   ├── utils/supabaseClient.js
+│   ├── App.jsx
+│   └── main.jsx
+├── docs/screenshots/        # UI screenshots used in README
+├── .env.example             # Supabase & optional PayFast env template
+└── render.yaml              # Render blueprint
 ```
 
 ---
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
+- **Node.js 18+**
+- A **Supabase** project with tables (`students`, `products`, `product_images`, `meetup_slots`, `orders`, `complaints`, `face_descriptors`, `categories`, `admins`), `place_order` RPC, and `product-images` / `student-cards` buckets.
 
-- Node.js 18+
-- A Supabase project with the schema described in [`docs/database-schema.md`](docs/database-schema.md)
-
-### 1. Clone and install
-
+### 1. Clone, Configure & Run
 ```bash
-git clone https://github.com/<your-username>/UniMarket_v2.git
+git clone https://github.com/KevinAsanda/UniMarket_v2.git
 cd UniMarket_v2
 npm install
+cp .env.example .env.local
 ```
-
-### 2. Configure environment variables
-
-Create a `.env` file in the project root:
-
-```env
-VITE_SUPABASE_URL=https://your-project-id.supabase.co
-VITE_SUPABASE_ANON_KEY=your-anon-public-key-here
-```
-
-> These values are available in your Supabase project under **Settings > API**.
-
-### 3. Run the development server
-
+Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in `.env.local`, then run:
 ```bash
-npm run dev
+npm run dev      # http://localhost:5173
+npm run build    # Production static bundle in dist/
 ```
 
-Open `http://localhost:5173` in your browser.
-
-### 4. Build for production
-
-```bash
-npm run build
-```
+> **Note:** As an academic engineering showcase, client-side Face ID `sessionStorage` fallbacks and client-side AI review routes are documented for educational context and should be moved behind server-side Edge Functions for production hardening.
 
 ---
 
-## Database Setup
+## 📄 License
 
-Apply the schema from [`docs/database-schema.md`](docs/database-schema.md) to your Supabase project. Key steps:
-
-1. Create all tables: `students`, `products`, `product_images`, `meetup_slots`, `orders`, `complaints`, `face_descriptors`, `categories`, `admins`.
-2. Create the `place_order` RPC function (SQL provided in the schema doc).
-3. Create two Supabase Storage buckets: `product-images` (public) and `student-cards` (restricted).
-4. Configure Row-Level Security (RLS) policies — see [`docs/security-and-architecture.md`](docs/security-and-architecture.md) for guidance.
-
----
-
-## Environment Notes
-
-- **Face ID login** sets `sessionStorage('um_student_id')` as a client-side fallback session. See the security doc for known risks and the recommended server-side fix.
-- **Admin AI review** calls the Anthropic Claude API. Currently this is a client-side call that will fail due to CORS. A Supabase Edge Function is the recommended path — see [`docs/improvements-roadmap.md`](docs/improvements-roadmap.md).
-
----
-
-## Documentation
-
-| Document | Description |
-| :--- | :--- |
-| [System Overview](docs/overview.md) | Platform summary, features, and technology stack |
-| [Database Schema](docs/database-schema.md) | Table definitions, ERD, and the `place_order` RPC |
-| [User Flows](docs/user-flows.md) | Registration, authentication, listing, and purchase journeys |
-| [Admin System](docs/admin-system.md) | Moderation queues and admin workflows |
-| [Security Analysis](docs/security-and-architecture.md) | Known vulnerabilities and remediation guidance |
-| [Improvements Roadmap](docs/improvements-roadmap.md) | Bug fixes, security patches, and planned features |
-
----
-
-## Known Limitations
-
-- Passwords are currently stored in plain text in the `students` table alongside the Supabase Auth entry. **Remove the `password` column before deploying to production.** Full details in the security doc.
-- The Admin AI review panel requires a server-side proxy to function. The current client-side Claude API call is blocked by CORS.
-- Face ID sessions are client-spoofable via `sessionStorage`. A server-signed token is needed for production hardening.
-
----
-
-## License
-
-This project is for academic and educational purposes.
+Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for details.
